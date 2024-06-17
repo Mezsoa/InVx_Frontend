@@ -1,0 +1,98 @@
+.loginForm{
+    display:grid;
+    margin: 30px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4,1fr);
+    background-color: #363636;
+    
+    padding: 20px;
+    gap: 10px; 
+    border-radius: 20px;
+    height: 24rem;
+   
+}
+
+.LoginContainer{
+    height: 68%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+    /* background-color: lightgray; */
+}
+
+.username{
+    grid-column: 1/-1;
+    grid-row: 1;
+    border-radius: 8px; 
+    margin: 8px; 
+    text-align: center;   
+}
+.password{
+    grid-column: 1/-1;
+    grid-row: 2;
+    border-radius: 8px;
+    margin: 8px;
+    text-align: center;
+    
+}
+.button{
+    grid-column: 1/-1;
+    grid-row: 3;
+    background-color: #F19D6F;
+    color: black;
+    border-radius: 8px;
+    font-size: x-large;
+    margin: 8px;
+    border-style: none;
+}
+
+
+.fg{
+    grid-column: 1/2;
+    grid-row: 4;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    margin-left: 10px;
+    align-self: center;
+    
+
+}
+
+.ca{
+    grid-column: 2/2;
+    grid-row: 4;
+    color: white;
+    font-size: 20px;
+    align-self: center;
+    
+}
+
+
+
+
+.LoginContainer{
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    display: flex;  
+}
+
+@media (min-width:600px) {
+    .LoginContainer{
+        height: 84%;
+        display: flex;
+        align-items: center;
+        justify-content: center;  
+    } 
+}
+
+@media (max-width:599px) and (min-width:457px)  {
+    .LoginContainer{
+        height: 72%;
+        display: flex;
+        align-items: center;
+        justify-content: center;  
+    } 
+
+}
