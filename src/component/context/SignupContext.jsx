@@ -13,7 +13,7 @@ const SignupProvider = ({children}) => {
     const fetchSignup = async (signupValue) => {
         
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, signupValue)
+            await axios.post(`${import.meta.env.VITE_API_URL}/auth/sign/up`, signupValue)
         }
         catch (error) {
             console.log(error);

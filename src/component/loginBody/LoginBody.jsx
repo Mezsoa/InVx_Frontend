@@ -25,7 +25,7 @@ const LoginBody = () => {
 
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/signin`,
+        `${import.meta.env.VITE_API_URL}/auth/sign/in`,
         {
           username,
           password,

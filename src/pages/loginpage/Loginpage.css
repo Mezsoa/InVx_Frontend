@@ -1,52 +1,47 @@
-
-.LoginPage{
-    height: 100vh;
-
+.LoginPage {
+  height: 100vh;
 }
 
+@media (max-width: 458px) {
+  #header-container {
+    background-color: rgba(240, 244, 244, 1);
+    /* border-bottom: 0.1px solid rgb(255, 255, 255); */
+    border: none;
+    height: 8rem;
+    margin-top: -6px;
+    background-image: url('data:image/svg+xml,<svg width="697" height="215" viewBox="0 0 697 215" fill="none" xmlns="http://www.w3.org/2000/svg"><g style="mix-blend-mode:overlay" filter="url(%23filter0_d_545_75)"><path d="M447.551 6H693V213H4.5V172.5L447.551 6Z" fill="white"/></g><defs><filter id="filter0_d_545_75" x="0.5" y="0" width="696.5" height="215" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="-2"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_545_75"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_545_75" result="shape"/></filter></defs></svg>');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
 
+  #logo-container {
+    display: none;
+  }
 
-@media (max-width:458px ) {
-    #header-container {
-        background-color: rgba(240, 244, 244, 1);
-        /* border-bottom: 0.1px solid rgb(255, 255, 255); */
-        border: none;
-        height: 8rem;
-        margin-top: -6px;
-        background-image: url('data:image/svg+xml,<svg width="697" height="215" viewBox="0 0 697 215" fill="none" xmlns="http://www.w3.org/2000/svg"><g style="mix-blend-mode:overlay" filter="url(%23filter0_d_545_75)"><path d="M447.551 6H693V213H4.5V172.5L447.551 6Z" fill="white"/></g><defs><filter id="filter0_d_545_75" x="0.5" y="0" width="696.5" height="215" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="-2"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_545_75"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_545_75" result="shape"/></filter></defs></svg>');
-        background-repeat: no-repeat;
-        background-size: cover;
-       background-position: center;  
-    }
+  .LoginPage {
+    border: none;
+    background-color: rgba(240, 244, 244, 1);
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url('data:image/svg+xml,<svg width="378" height="523" viewBox="0 0 378 523" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 35.3301C0 24.6168 8.44186 15.8062 19.1454 15.3484L357.145 0.891961C368.516 0.405633 378 9.49264 378 20.8737V502.066C378 519.386 357.483 528.518 344.614 516.926L6.6142 212.458C2.40386 208.665 0 203.265 0 197.598V35.3301Z" fill="white"/></svg>');
+  }
 
-    #logo-container{
-        display: none;
-    }
-
-    .LoginPage{
-        border: none;
-        background-color: rgba(240, 244, 244, 1);
-        background-repeat: no-repeat;
-        background-size: auto;
-        background-repeat: no-repeat;
-        background-size: cover;
-       background-position: center;
-        background-image: url('data:image/svg+xml,<svg width="378" height="523" viewBox="0 0 378 523" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 35.3301C0 24.6168 8.44186 15.8062 19.1454 15.3484L357.145 0.891961C368.516 0.405633 378 9.49264 378 20.8737V502.066C378 519.386 357.483 528.518 344.614 516.926L6.6142 212.458C2.40386 208.665 0 203.265 0 197.598V35.3301Z" fill="white"/></svg>');
-    }
-   
-    .logo-a{
-        width: 100%;
-        display: block;
-        margin-bottom: -5rem;
-        
-    }
-    
+  .logo-a {
+    scale: 0.5;
+    /* width: 100%; */
+    /* justify-items: center; */
+    display: flex;
+    align-items: center;
+    margin-bottom: -15rem;
+    z-index: -2;
+  }
 }
-@media (min-width:459px ) {
-    .logo-a{
-        display: none;
-    }
-    
+@media (min-width: 459px) {
+  .logo-a {
+    display: none;
+  }
 }
-
-
