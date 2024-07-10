@@ -4,7 +4,6 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4,1fr);
     background-color: #363636;
-    
     padding: 20px;
     gap: 10px; 
     border-radius: 20px;

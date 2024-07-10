@@ -1,0 +1,103 @@
+.dropdown-container {
+    display: flex;
+    height: 100%;
+    z-index: 1;
+    flex-grow: 1;
+    align-items: center;
+  }
+  
+  .dropdown {
+    grid-template-rows: repeat(3, 1fr);
+    margin-left: 2rem;
+    cursor: pointer;
+  }
+  
+  .dropdown div {
+    background-color: rgb(99, 104, 107);
+    width: 1.7rem;
+    height: 0.2rem;
+    margin-top: 5px;
+    margin-left: 8rem;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  #toggle-dropdown {
+    display: none;
+  }
+  
+  #toggle-dropdown:checked + .dropdown .top {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  
+  #toggle-dropdown:checked + .dropdown .middle {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-top: -4px;
+  }
+  
+  #toggle-dropdown:checked + .dropdown .bottom {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    margin-top: -4px;
+  }
+  
+  #toggle-dropdown:checked + .dropdown{
+    height: 2rem;
+    top: 0.2rem;
+  }
+  
+  .dropdown-active {
+    box-shadow: 1px 2px 3px 1px;
+    height: 23rem;
+    width: 10vw;
+    background-color: rgba(19, 20, 20, 0.342);
+    border-radius: 20px;
+    position: absolute;
+    top: 6rem;
+    margin-left: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    /* transition: height 200ms linear 0s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
+    transition: height 200ms linear 0s;
+  }
+  .dropdown-not-active {
+    height: 17rem;
+    width: 10vw;
+    position: absolute;
+    left: 3rem;
+    top: 6rem;
+  }
+  .dropdown-not-active .dd-link {
+    display: none;
+  }
+  .dropdown-not-active .dd-misc {
+    display: none;
+  }
+  
+  .dd-misc {
+    color: white;
+    text-decoration: none;
+    font-size: 110%;
+  }
+  #hr {
+    color: aliceblue;
+  }
+  
+  .dd-link {
+    color: white;
+    text-decoration: none;
+    font-size: 110%;
+  }
+  
+  .dd-link:hover {
+    font-size: 160%;
+  }
+  
+  .dd-link:active {
+    font-size: 160%;
+  }
+  
