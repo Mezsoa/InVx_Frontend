@@ -19,7 +19,7 @@ function App() {
         <SignupProvider>
               <BrowserRouter>
                 <Routes>
-                  <Route path="/" element={<Startpage />} />
+                  <Route path="/home" element={<Startpage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/signup" element={<SignupPage />} />
                 </Routes>

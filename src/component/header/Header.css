@@ -11,13 +11,12 @@
 
 .logo-container {
   z-index: 2;
-  margin-right: -9rem;
 }
 
 .logo {
   scale: 0.2;
   
-  background-color: rgb(99, 104, 107);
+  background-color: rgb(78, 154, 204);
   border-radius: 200px;
 }
 

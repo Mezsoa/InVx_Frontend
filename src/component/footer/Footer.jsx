@@ -32,7 +32,7 @@ const Footer = () => {
           <Link to="/contact">Contact</Link>
           <Link to="/">Home</Link>
           <Link to="/profile">Profile</Link>
-          <Link className="logout" to="/" onClick={handleLogout}>Sign out</Link>
+          <Link className="logout" to="/login" onClick={handleLogout}>Sign out</Link>
         </div>
       );
     }

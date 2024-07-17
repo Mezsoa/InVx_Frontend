@@ -3,14 +3,16 @@
   justify-content: baseline;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  height: 50vh;
   width: 100%;
   margin-top: 5rem;
 }
 
 .task-form {
   padding: 15px;  
-  width: 20%;
+  min-width: 20rem;
+  max-width: 30rem;
+  padding: 30px;
   background-color: rgba(122, 118, 118, 0.931);
   border: none;
   border-radius: 10px;
@@ -73,4 +75,24 @@
 
 #submit-btn:hover{
   background-color: rgba(0, 0, 0, 0.704);
+}
+
+
+.task-list {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow:auto;
+
+  padding: 35px;
+  max-height: 15rem;
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-top: 2rem;
+  margin-bottom: 10rem; 
+  border-radius: 15px;
 }

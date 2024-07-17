@@ -53,7 +53,7 @@ const Dropdown = () => {
           <Link className="dd-link" to="/contact">Contact</Link>
           {auth ? null : <><p className="dd-misc">____________</p><Link className="dd-link" to="/signup">Register</Link></>}
           {auth ? null : <Link className="dd-link" to="/login">Sign in</Link>}
-          {auth ? <><p className="dd-misc">____________</p><Link className="dd-link" to="/" onClick={handleLogout}>Sign out</Link></> : null}
+          {auth ? <><p className="dd-misc">____________</p><Link className="dd-link" to="/login" onClick={handleLogout}>Sign out</Link></> : null}
       </div>
     </>
   )

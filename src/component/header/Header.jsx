@@ -15,7 +15,7 @@ const Header = () => {
       </div>
 
       <div className="logo-container">
-      <Link to="/">
+      <Link to="/home">
           <img src= {InVx} className="logo" alt="Logo"/>
         </Link>
       </div>

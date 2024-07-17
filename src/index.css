@@ -9,7 +9,7 @@
 }
 
 body {
-  width: 100vw !important;
+  width: 100% !important;
   height: 100vh !important;
   background-color: rgba(20, 18, 18, 0.931) !important;
 }
