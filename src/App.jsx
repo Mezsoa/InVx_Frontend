@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Startpage from "./pages/startpage/Startpage";
 import LoginPage from "./pages/loginpage/Loginpage";
 import SignupPage from "./pages/signupPage/SignupPage";
+import AboutPage from "./pages/aboutPage/AboutPage";
 
 // Providers
 import { AuthProvider } from "./component/context/AuthContext";
@@ -19,6 +20,7 @@ function App() {
         <SignupProvider>
               <BrowserRouter>
                 <Routes>
+                  <Route path="/about" element={<AboutPage />} />
                   <Route path="/home" element={<Startpage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/signup" element={<SignupPage />} />

@@ -2,14 +2,13 @@ import "./Loginpage.css"
 import Footer from "../../component/footer/Footer";
 import LoginBody from "../../component/loginBody/LoginBody";
 import { Link } from "react-router-dom";
-import Header from "../../component/header/Header";
+import invx from "../../assets/invx.png";
 
 const LoginPage = () => {
     return (
         <div className="LoginPage">
-            <Header></Header>
-            <Link to={"/"} className="home-link">
-                 <img src="src/assets/InVx.png" className="logo-a" /></Link>
+            <Link to={""} className="home-link">
+                 <img src={invx} className="logo-l" /></Link>
             <LoginBody></LoginBody>
             <Footer></Footer>
             

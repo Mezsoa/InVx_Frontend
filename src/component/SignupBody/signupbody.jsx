@@ -1,7 +1,8 @@
 import "../SignupBody/signupbody.css";
 import { useContext, useEffect, useState } from "react";
 import { SignupContext, SignupProvider } from "../context/SignupContext";
-
+import { Link } from "react-router-dom";
+import invx from "../../assets/invx.png";
 const signupbody = () => {
   const { fetchSignup } = useContext(SignupContext);
 
@@ -31,7 +32,11 @@ const signupbody = () => {
   };
 
   return (
+    <>
+    
     <div className="signupBody">
+    <Link to={"/login"} className="home-link">
+    <img src={invx} className="logo-s" /></Link>
       <div className="signUpContainer">
         <form className="signUpForm">
           <div className="signuptitle">
@@ -109,6 +114,7 @@ const signupbody = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

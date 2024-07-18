@@ -1,3 +1,4 @@
+
 .signupPage {
     display: flex;
     flex-direction: column;
@@ -42,7 +43,8 @@
     text-align: center;
   }
   .signUpButton {
-    background-color: #f19d6f;
+    /* background-color: #2C7145; */
+    background: linear-gradient(90deg, #0F414D 0%, #196C7F 42%, #39A548 100%);
     color: black;
     padding: 10px;
     border-radius: 14px;
@@ -51,14 +53,20 @@
     min-width: 200px;
     max-width: 400px;
     align-self: center;
+    cursor: pointer;
+  }
+  .signUpButton:hover {
+    box-shadow: 1px 2px 1px 1px rgba(255, 255, 255, 0.37);
   }
   
   .signuptitle {
-    background-color: white;
+    /* background-color: #31A8CA; */
+    /* background-color: #2C7145; */
+    background: linear-gradient(90deg, #0F414D 0%, #196C7F 42%, #39A548 100%);
     color: black;
-    width: 120%;
+    /* width: 120%; */
     height: 4rem;
-    margin-bottom: 1rem;
+    margin-bottom: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,8 +79,6 @@
   }
   
   .inputDOB{
-  width: 80%;
-  
   color: #7c7c7c;
   }
   

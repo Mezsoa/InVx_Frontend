@@ -12,12 +12,9 @@
 }
 
 .LoginContainer{
-    height: 68%;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: -1;
-    /* background-color: lightgray; */
 }
 
 .username{
@@ -38,19 +35,23 @@
 .button{
     grid-column: 1/-1;
     grid-row: 3;
-    background-color: #F19D6F;
+    background-color: #2C7145;
     color: black;
     border-radius: 8px;
     font-size: x-large;
     margin: 8px;
     border-style: none;
+    cursor: pointer;
+}
+.button:hover {
+    box-shadow: 2px 4px 2px 1px rgba(255, 255, 255, 0.37);
 }
 
 
 .fg{
     grid-column: 1/2;
     grid-row: 4;
-    color: rgb(255, 255, 255);
+    color: whitesmoke;
     font-size: 20px;
     margin-left: 10px;
     align-self: center;
@@ -61,7 +62,7 @@
 .ca{
     grid-column: 2/2;
     grid-row: 4;
-    color: white;
+    color: whitesmoke;
     font-size: 20px;
     align-self: center;
     
@@ -79,7 +80,6 @@
 
 @media (min-width:600px) {
     .LoginContainer{
-        height: 84%;
         display: flex;
         align-items: center;
         justify-content: center;  
@@ -88,7 +88,6 @@
 
 @media (max-width:599px) and (min-width:457px)  {
     .LoginContainer{
-        height: 72%;
         display: flex;
         align-items: center;
         justify-content: center;  
