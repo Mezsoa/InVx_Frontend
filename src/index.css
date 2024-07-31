@@ -10,6 +10,6 @@
 
 body {
   width: 100% !important;
-  height: 150vh !important;
+  /* height: 150vh !important; */
   background: linear-gradient(0deg, #0f414d 0%, #196C7F 52%, #2397B3 79%) !important;
 }

@@ -44,7 +44,7 @@
     cursor: pointer;
 }
 .button:hover {
-    box-shadow: 2px 4px 2px 1px rgba(255, 255, 255, 0.37);
+    box-shadow: 2px 4px 2px 1px rgba(0, 0, 0, 0.37);
 }
 
 

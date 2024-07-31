@@ -31,26 +31,19 @@
   
   .footer a {
     font-display: none;
-    color: black;
+    color: rgb(167, 167, 167);
   }
   
   a:link {
     text-decoration: none;
   }
-  .b:hover {
-    background-color: rgba(54, 54, 54, 1);
-    color: white;
-    border-radius: 5px;
-  }
   
+   
   /*===============================================*/
   /* Mobile */
   @media screen and (max-width: 599px) {
     .footer-desktop, .over {
       display: none;
-    }
-    .footer{
-      grid-template-rows: 0 60px;
     }
   }
   
@@ -64,21 +57,18 @@
   
     .footer {
       display: flex;
-      /* border-top: 1px solid black; */
-      /* background-color: rgb(46, 85, 62); */
-      background: linear-gradient(180deg, #0f414d00 0%, #196c7f 52%, #2396b38f 89%);
+      background: linear-gradient(180deg, #0f414d00 0%, #0f434e 25%, #0a21278f 99%);
       padding: 10px;
       font-weight: 600;
       justify-content: center;
       height: 10rem;
       align-items: center;
-      margin-top: 43rem;
+      margin-top: 30rem;
       border: none;
     }
     .footer-desktop {
       display: flex;
       gap: 50px;
-      /* height: 10rem; */
       align-items: center;
     }
   }

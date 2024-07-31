@@ -75,12 +75,10 @@ const Main = () => {
         <Link to={""} className="home-link">
           <img src={invx} className="logo-h" />
         </Link>
-
         <form className="task-form" onSubmit={saveTaskToBackend}>
           <div className="task-header">
             <p>Add New Task</p>
           </div>
-
           <input
             name="title"
             id="title"
@@ -89,41 +87,14 @@ const Main = () => {
             value={inputData.title}
             onChange={handleInputChange}
           />
-
-          <input
-            name="description"
-            id="description"
-            placeholder="Description"
-            type="text"
-            value={inputData.description}
-            onChange={handleInputChange}
-          />
-
-          <input
-            name="status"
-            id="status"
-            placeholder="Status"
-            type="text"
-            value={inputData.status}
-            onChange={handleInputChange}
-          />
-
-          <input
-            name="priority"
-            id="priority"
-            placeholder="Priority"
-            type="text"
-            value={inputData.priority}
-            onChange={handleInputChange}
-          />
-
           <input type="submit" value="submit" id="submit-btn" />
         </form>
       </div>
 
+      
       <div className="task-list">
         <div className="task-info">
-          <h2 className="h2">TASKS</h2>
+          <h2 className="h">TASKS</h2>
           {task.length === 0 ? (
             <p>No tasks available</p>
           ) : (
@@ -133,9 +104,6 @@ const Main = () => {
                   <div className="task-space">
                     <br />
                     <h3 className="h3">{task.title}</h3>
-                    <p className="p">{task.description}</p>
-                    <p className="p">Status: {task.status}</p>
-                    <p className="p">Priority: {task.priority}</p>
                   </div>
                 </div>
               ))}
