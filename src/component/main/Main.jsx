@@ -62,6 +62,7 @@ const Main = () => {
     }
   };
 
+  // Getting all tasks owned by the loggedInUserId
   const fetchTasks = async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/task/find/all/${loggedInUserId}`);
