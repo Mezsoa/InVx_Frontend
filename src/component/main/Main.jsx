@@ -8,20 +8,10 @@ const Main = () => {
   const [task, setTask] = useState([]);
   const [inputData, setInputData] = useState({
     title: "",
-    description: "",
-    status: "",
-    priority: "",
   });
 
-  const fetchTasks = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/task/find/all`);
-      const data = await res.json();
-      setTask(data);
-    } catch (error) {
-      console.log("Error fetching tasks:", error);
-    }
-  };
+  const loggedInUserId = localStorage.getItem("loggedInUserId");
+  console.log("logged in user:", loggedInUserId);
 
   useEffect(() => {
     fetchTasks();
@@ -38,13 +28,20 @@ const Main = () => {
   const saveTaskToBackend = async (e) => {
     e.preventDefault();
 
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+
+    if (!loggedInUserId) {
+      alert("User is not logged in or user ID is missing");
+      return;
+    }
+
     var options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify(inputData),
+      body: JSON.stringify({ ...inputData, userId: loggedInUserId }),
     };
 
     try {
@@ -57,14 +54,22 @@ const Main = () => {
         fetchTasks();
         setInputData({
           title: "",
-          description: "",
-          status: "",
-          priority: "",
         });
       }
     } catch (error) {
       console.log("Error saving task:", error);
       alert("Failed to create the task");
+    }
+  };
+
+  const fetchTasks = async () => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/task/find/all/${loggedInUserId}`);
+      const data = await res.json();
+      setTask(data);
+      console.log(data);
+    } catch (error) {
+      console.log("Error fetching tasks:", error);
     }
   };
 
@@ -91,7 +96,6 @@ const Main = () => {
         </form>
       </div>
 
-      
       <div className="task-list">
         <div className="task-info">
           <h2 className="h">TASKS</h2>
@@ -99,11 +103,11 @@ const Main = () => {
             <p>No tasks available</p>
           ) : (
             <ul>
-              {task.map((task) => (
-                <div key={task.id}>
+              {task.map((taskItem) => (
+                <div key={taskItem.id}>
                   <div className="task-space">
                     <br />
-                    <h3 className="h3">{task.title}</h3>
+                    <h3 className="h3">{taskItem.title}</h3>
                   </div>
                 </div>
               ))}

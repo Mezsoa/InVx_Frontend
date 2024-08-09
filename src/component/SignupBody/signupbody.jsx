@@ -23,12 +23,41 @@ const signupbody = () => {
 
   const handleSubmit = async (e, signupValue) => {
     e.preventDefault();
-    if (signupValue.error) {
-      console.log("error: " + signupValue.error);
-    }
-    await fetchSignup(signupValue);
-    console.log(signupValue);
-    window.location.href = "/login";
+
+    // SETTING UP THE REQUEST OPTIONS
+    var options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(signupValue),
+    };
+    // SENDING A REQUEST TO THE BACKEND API
+  
+     try {
+       const res = await fetch(
+         `${import.meta.env.VITE_API_URL}/auth/sign/up`,
+         options
+       );
+
+       if (res.status === 200) {
+         console.log("regristrering ok");
+         // Storing popupmessage, Getting it onece the user is redirected to login.
+         localStorage.setItem(
+           "popupmessage",
+           "Lyckad Registrering!\nVänligen logga in"
+         );
+         // Here i want to redirect the created user
+         window.location.href = "/login";
+       } else {
+        alert("Färsäk igen");
+       }
+     } catch (err) {
+      alert("Ett oväntat fel har inträffat")
+     }
+      
+  
   };
 
   return (
