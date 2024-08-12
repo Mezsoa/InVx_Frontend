@@ -57,19 +57,25 @@
   
     .footer {
       display: flex;
-      background: linear-gradient(180deg, #0f414d00 0%, #0f434e 25%, #0a21278f 99%);
+      /* background: linear-gradient(180deg, #0f414d00 0%, #0f434e 25%, #0a21278f 99%); */
       padding: 10px;
       font-weight: 600;
       justify-content: center;
-      height: 10rem;
+      height: 3rem;
       align-items: center;
-      margin-top: 46rem;
+      margin-top: 18rem;
       border: none;
     }
     .footer-desktop {
       display: flex;
       gap: 50px;
       align-items: center;
+    }
+  }
+
+  @media only screen and (max-width: 599px) {
+    .footer {
+      margin-top: 8rem;
     }
   }
   

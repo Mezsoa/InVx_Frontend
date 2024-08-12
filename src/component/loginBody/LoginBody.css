@@ -1,28 +1,30 @@
-.loginForm{
-    display:grid;
-    margin: 30px;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4,1fr);
-    background-color: #363636;
-    padding: 20px;
-    gap: 10px; 
-    border-radius: 20px;
-    height: 24rem;
-   
-}
-
 .LoginContainer{
-    display: flex;
     align-items: center;
     justify-content: center;
+    width: 70%;
+    display: flex;
+    height: auto;
+}
+.loginForm{
+    display:grid;
+    /* margin: 10px; */
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1,1fr);
+    /* background: linear-gradient(180deg, #010101 0%, #010101 47%, #010101 100%); */
+    background: linear-gradient(180deg, rgba(1, 1, 1, 0.16) 0%, rgba(1, 1, 1, 0.6) 46.5%, rgba(1, 1, 1, 0.57) 100%);
+    padding: 2rem;
+    gap: 1.2rem; 
+    border-radius: 25px;
 }
 
 .username{
     grid-column: 1/-1;
     grid-row: 1;
     border-radius: 8px; 
-    margin: 8px; 
-    text-align: center;   
+    margin: 8px;
+    text-align: center;
+    height: 2rem;
+    outline: none;
 }
 .password{
     grid-column: 1/-1;
@@ -30,55 +32,61 @@
     border-radius: 8px;
     margin: 8px;
     text-align: center;
-    
+    height: 2rem;
+    outline: none;
 }
-.button{
+.button {
     grid-column: 1/-1;
-    grid-row: 3;
-    background-color: #2C7145;
+    grid-row: 5;
+    background-color: #D9D9D9;
     color: black;
     border-radius: 8px;
-    font-size: x-large;
+    font-size: medium;
     margin: 8px;
     border-style: none;
     cursor: pointer;
+    padding: 5px;
+    height: 2rem;
 }
-.button:hover {
-    box-shadow: 2px 4px 2px 1px rgba(0, 0, 0, 0.37);
-}
+
 
 /*FORGOT PASSWORD*/
 .fg{
     grid-column: 1/2;
-    grid-row: 4;
-    color: whitesmoke;
-    font-size: 20px;
+    grid-row: 3;
+    color: rgb(0, 0, 0);
+    font-size: 50%;
     margin-left: 10px;
-    align-self: center;
-    
-
+    background-color: #D9D9D9;
+    border-radius: 5px;
+    text-align: center;
+    align-content:  center;
+    padding: 1px 10px 1px;
+    height: 1.5rem;
 }
 /*CREATE ACCOUNT*/
 .ca{
-    grid-column: 2/2;
-    grid-row: 4;
-    color: whitesmoke;
-    font-size: 20px;
-    align-self: center;
-    
+    grid-column: 3/3;
+    grid-row: 3;
+    color: rgb(0, 0, 0);
+    font-size: 50%;
+    margin-right: 9px;
+    background-color: #D9D9D9;
+    border-radius: 5px;
+    text-align: center;
+    align-content: center;
+    padding: 1px 10px 1px;
+    height: 1.5rem;
+}
+
+.button:hover,
+.fg:hover,
+.ca:hover {
+    box-shadow: 2px 4px 2px 1px rgba(0, 0, 0, 0.603);
 }
 
 
-
-
-.LoginContainer{
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    display: flex;  
-}
-
-@media (min-width:600px) {
+/* @media (min-width:600px) {
     .LoginContainer{
         display: flex;
         align-items: center;
@@ -93,4 +101,4 @@
         justify-content: center;  
     } 
 
-}
+} */

@@ -6,11 +6,12 @@
   font-optical-sizing: auto !important;
   font-weight: 500 !important;
   font-style: normal !important;
+  /* height: 100%; */
 }
 
 body {
   width: 100% !important;
-  height: 100%;
-  min-height: 100vh;
-  background: linear-gradient(0deg, #0f414d 0%, #196C7F 52%, #2397B3 79%) !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  background: linear-gradient(180deg, #0f414d 0%, #1e99b7 38%, #0f414d 68%, #050505 81%) !important;
 }

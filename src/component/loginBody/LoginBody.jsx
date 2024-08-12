@@ -73,18 +73,19 @@ const LoginBody = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        <button type="submit" className="button">
-          Sign In
-        </button>
-
         <a className="fg" href="index.html">
-          Forgot password?{" "}
+          Forgot password{" "}
         </a>
 
         <a className="ca" href="/signup">
           Create new account
         </a>
+        
+        <button type="submit" className="button">
+          Sign In
+        </button>
+
+        
       </form>
     </div>
   );
