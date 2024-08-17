@@ -1,29 +1,21 @@
 .task-container {
   display: flex;
-  justify-content: baseline;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
   margin-top: 2rem;
 }
-/* .logo-h {
-  height: 5rem;
-  width: 5rem;
-  scale: 1.5;
-  margin-top: 2rem;
-  margin-bottom: 3rem;
-} */
 
 .task-form {
-  width: 50%;
-  /* background-color: rgba(122, 118, 118, 0.931); */
+  width: 60%;
   border: none;
   border-radius: 15px;
 }
+
 .task-header {
-  text-align: center;
   margin-bottom: 1rem;
-  color: rgb(255, 145, 0);
+  color: rgb(255, 255, 255);
   font-weight: 900;
   font-size: 20px;
 }
@@ -36,64 +28,101 @@
   text-align: center;
   margin-bottom: 1rem;
   outline: none;
-  background-color: rgba(5, 6, 6, 0.163);
+  background-color: rgba(255, 255, 255, 0.119);
+  color: rgb(255, 255, 255);
 }
 
-/* #submit-btn {
-  display: flex;
-  flex-direction: row;
-  width: 10%;
-  height: 3rem;
-  border: none;
-  border-radius: 15px;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: rgb(255, 145, 0);
-  background-color: black;
-} */
-
-/* #submit-btn:hover {
-  background-color: rgba(0, 0, 0, 0.704);
-} */
-
 .task-list {
-  background-color: rgba(5, 6, 6, 0.192);
-  box-shadow: 1px 1px 1px rgb(0, 0, 0);
   color: rgb(255, 255, 255);
   text-align: center;
   font-size: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 10px;
-  max-height: 17.7rem;
-  margin-left: 20%;
-  margin-top: 2%;
-  border-radius: 15px;
-  width:60%;
-}
-.task-info {
   padding: 20px;
-  overflow: auto;
-  width: 100%;
+  max-height: 20rem;
+  overflow: scroll;
+  margin-bottom: 3rem;
 }
-.task-space {
-  padding: 10px;
-}
+
 .h {
-  font-weight: 600 !important;
-  color: rgb(255, 145, 0);
+  margin-bottom: 1rem;
+  margin-top: 5rem;
+  color: white;
+  display: flex;
+  justify-content: center;
 }
-.h3 {
-  color: rgb(255, 145, 0);
+
+.task-info {
+  width: 50vw;
+  display: flex;
+  justify-content: space-between; /*Pushes the checkbox to the right */
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.119);
+  border-radius: 15px;
+  margin-bottom: 1rem;
+}
+
+.task-info .task-title {
+  flex: 1; /* Ensures the title takes up available space */
+  padding-right: 10px;
+  display: flex;
+  justify-content: start;
+  font-size: small;
+}
+
+/* Ensure the label takes full width and is clickable */
+.task-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  height: 1rem;
+}
+
+/* Hide the default checkbox */
+.task-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Checked state styling */
+.task-label input[type="checkbox"]:checked {
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+/* Add a checkmark inside the circle */
+.task-label input[type="checkbox"]:checked::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Optional: Hover effect */
+.task-label input[type="checkbox"]:hover {
+  border-color: #ffae42;
 }
 
 
-@media only screen and (max-width: 750px) {
-  .task-list {
-  margin-left: 20%;
-  margin-top: 5%;
-  /* margin-right: 30%; */
-  width: 60%;
-  }
-}
+

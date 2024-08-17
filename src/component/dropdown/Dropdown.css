@@ -29,13 +29,14 @@
   position: absolute;
   /* top: 100%; */
   left: 0;
-  width: 100%;
+  width: 96%;
   max-height: 0;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.204); /* Background with transparency */
-  backdrop-filter: blur(10px); /* Apply the blur effect */
+  backdrop-filter: blur(10px); /*Apply the blur effect */
   transition: max-height 0.3s ease-in-out;
   border-radius: 20px;
+  margin-left: 1.5%;
 }
 
 .dropdown-active {

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import "../../component/main/main.css";
-import invx from "../../assets/invx.png";
-import { Link } from "react-router-dom";
 import Dropdown from "../dropdown/Dropdown.jsx";
 
 const Main = () => {
@@ -25,9 +23,24 @@ const Main = () => {
     }));
   };
 
+  // Getting all tasks owned by the loggedInUserId
+  const fetchTasks = async () => {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/task/find/all/${loggedInUserId}`
+      );
+      const data = await res.json();
+      setTask(data);
+      console.log(data);
+    } catch (error) {
+      console.log("Error fetching tasks:", error);
+    }
+  };
+
+  // Save the task to backend database.
+  // POST request to backend.
   const saveTaskToBackend = async (e) => {
     e.preventDefault();
-
     const loggedInUserId = localStorage.getItem("loggedInUserId");
 
     if (!loggedInUserId) {
@@ -62,25 +75,36 @@ const Main = () => {
     }
   };
 
-  // Getting all tasks owned by the loggedInUserId
-  const fetchTasks = async () => {
+  // Delete request to backend.
+  const deleteTask = async (taskId) => {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/task/find/all/${loggedInUserId}`
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/task/delete/${taskId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
       );
-      const data = await res.json();
-      setTask(data);
-      console.log(data);
-    } catch (error) {
-      console.log("Error fetching tasks:", error);
+      if (response.ok) {
+        setTask((prevTasks) => prevTasks.filter(task => task.id != taskId));
+      } else {
+        // alert("Something went wrong and failed to delete the task!");
+      }
+    } catch (err) {
+      console.log("error deleteing the task", err);
+      alert("Failed to delete the task.");
     }
   };
+
+ 
 
   return (
     <>
       <Dropdown></Dropdown>
       <div className="task-container">
-
         <div className="task-header">
           <p>Add New Task</p>
         </div>
@@ -93,29 +117,25 @@ const Main = () => {
             value={inputData.title}
             onChange={handleInputChange}
           />
-          
         </form>
-
       </div>
 
+      <h4 className="h">The plans you have created</h4>
       <div className="task-list">
-        <div className="task-info">
-          <h3 className="h">TASKS</h3>
-          {task.length === 0 ? (
-            <p>No tasks available</p>
-          ) : (
-            <div>
-              {task.map((taskItem) => (
-                <div key={taskItem.id}>
-                  <div className="task-space">
-                    <br />
-                    <h3 className="h3">{taskItem.title}</h3>
-                  </div>
-                </div>
-              ))}
+        {task.length === 0 ? (
+          <p>No tasks available</p>
+        ) : (
+          <div>
+            {task.map((taskItem) => (
+              <div key={taskItem.id} className="task-info">
+                <label className="task-label">
+                  <span className="task-title" onClick={() => deleteTask(taskItem.id)}>{taskItem.title}</span>
+                  <input type="checkbox" />
+                </label>
               </div>
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
