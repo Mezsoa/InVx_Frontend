@@ -8,7 +8,7 @@
   justify-content: flex-start;
   width: 100%;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0); /* Slight transparency */
+  background-color: rgba(255, 255, 255, 0);
 }
 .dropdown-react-menu-icon {
   scale: 2.5;
@@ -16,7 +16,7 @@
 }
 
 #toggle-dropdown {
-  display: none; /* Hide the checkbox */
+  display: none; /* Hiding the checkbox here */
 }
 
 .dropdown {
@@ -27,20 +27,19 @@
 /* Dropdown menu */
 .dropdown-active, .dropdown-not-active {
   position: absolute;
-  /* top: 100%; */
   left: 0;
   width: 96%;
   max-height: 0;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.204); /* Background with transparency */
-  backdrop-filter: blur(10px); /*Apply the blur effect */
+  backdrop-filter: blur(10px); /*This creates the background blurr effect*/
   transition: max-height 0.3s ease-in-out;
   border-radius: 20px;
   margin-left: 1.5%;
 }
 
 .dropdown-active {
-  max-height: 350px; /* Adjust this value based on the content height */
+  max-height: 350px; /* this is based on the contents height */
 }
 
 .dd-link, .dd-misc {
