@@ -12,7 +12,6 @@
 }
 .dropdown-react-menu-icon {
   scale: 2.5;
-
 }
 
 #toggle-dropdown {
@@ -28,6 +27,7 @@
 .dropdown-active, .dropdown-not-active {
   position: absolute;
   left: 0;
+  top: 6%;
   width: 96%;
   max-height: 0;
   overflow: hidden;
@@ -51,5 +51,6 @@
 }
 
 .dd-link:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.204); */
+  text-decoration: underline rgb(255, 255, 255);
 }

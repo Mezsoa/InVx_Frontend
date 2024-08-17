@@ -119,8 +119,9 @@ const Main = () => {
           />
         </form>
       </div>
-
+      <div className="task-list-header">
       <h4 className="h">The plans you have created</h4>
+      </div>
       <div className="task-list">
         {task.length === 0 ? (
           <p>No tasks available</p>
@@ -128,8 +129,8 @@ const Main = () => {
           <div>
             {task.map((taskItem) => (
               <div key={taskItem.id} className="task-info">
-                <label className="task-label">
-                  <span className="task-title" onClick={() => deleteTask(taskItem.id)}>{taskItem.title}</span>
+                <label className="task-label" onClick={() => deleteTask(taskItem.id)}>
+                  <span className="task-title" >{taskItem.title}</span>
                   <input type="checkbox" />
                 </label>
               </div>

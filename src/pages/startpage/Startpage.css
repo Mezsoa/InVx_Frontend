@@ -1,3 +1,6 @@
 .startpage {
-    height: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }

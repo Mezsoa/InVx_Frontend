@@ -1,6 +1,5 @@
 .task-container {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
@@ -40,17 +39,33 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  min-height: 20rem;
   max-height: 20rem;
   overflow: scroll;
   margin-bottom: 3rem;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+}
+
+.task-list::-webkit-scrollbar {
+  display: none;
+}
+
+.task-list-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .h {
-  margin-bottom: 1rem;
+  border-radius: 5px;
   margin-top: 5rem;
-  color: white;
+  font-size: small;
+  color: rgba(255, 255, 255, 0.678);
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.119);
 }
 
 .task-info {
