@@ -61,9 +61,9 @@
       padding: 10px;
       font-weight: 600;
       justify-content: center;
-      height: 3rem;
+      height: 10rem;
       align-items: center;
-      margin-top: 18rem;
+      margin-top: 13rem;
       border: none;
     }
     .footer-desktop {
@@ -72,10 +72,3 @@
       align-items: center;
     }
   }
-
-  @media only screen and (max-width: 599px) {
-    .footer {
-      margin-top: 8rem;
-    }
-  }
-  

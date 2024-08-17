@@ -1,7 +1,7 @@
 .LoginContainer{
     align-items: center;
     justify-content: center;
-    width: 70%;
+    max-width: 60%;
     display: flex;
     height: auto;
 }
@@ -36,7 +36,7 @@
     outline: none;
 }
 .button {
-    grid-column: 1/-1;
+    grid-column: 2/3;
     grid-row: 5;
     background-color: #D9D9D9;
     color: black;
@@ -46,7 +46,9 @@
     border-style: none;
     cursor: pointer;
     padding: 5px;
-    height: 2rem;
+    height: 2.5rem;
+    margin-left: -3rem;
+    margin-right: -3rem;
 }
 
 
@@ -56,13 +58,14 @@
     grid-row: 3;
     color: rgb(0, 0, 0);
     font-size: 50%;
-    margin-left: 10px;
+    margin-left: 0.6rem;
+    margin-right: -2rem;
     background-color: #D9D9D9;
     border-radius: 5px;
     text-align: center;
     align-content:  center;
-    padding: 1px 10px 1px;
-    height: 1.5rem;
+    height: 2rem;
+    border: none;
 }
 /*CREATE ACCOUNT*/
 .ca{
@@ -70,13 +73,14 @@
     grid-row: 3;
     color: rgb(0, 0, 0);
     font-size: 50%;
-    margin-right: 9px;
+    margin-right: 0.6rem;
+    margin-left: -2rem;
     background-color: #D9D9D9;
+    border: none;
     border-radius: 5px;
     text-align: center;
     align-content: center;
-    padding: 1px 10px 1px;
-    height: 1.5rem;
+    height: 2rem;
 }
 
 .button:hover,

@@ -38,9 +38,9 @@ const Dropdown = () => {
         <nav id="navbar" className="navigation" role="navigation">
             <input id="toggle-dropdown" type="checkbox" onClick={handleClick} />
             <label className="dropdown" htmlFor="toggle-dropdown">
-                <div className="top"></div>
+                {/* <div className="top"></div>
                 <div className="middle"></div>
-                <div className="bottom"></div>
+                <div className="bottom"></div> */}
             </label>
         </nav>
     </div>

@@ -50,7 +50,7 @@ const Main = () => {
         options
       );
       if (res.status === 200) {
-        alert("The task was saved successfully!");
+        // alert("The task was saved successfully!");
         fetchTasks();
         setInputData({
           title: "",
@@ -65,7 +65,9 @@ const Main = () => {
   // Getting all tasks owned by the loggedInUserId
   const fetchTasks = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/task/find/all/${loggedInUserId}`);
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/task/find/all/${loggedInUserId}`
+      );
       const data = await res.json();
       setTask(data);
       console.log(data);
@@ -78,13 +80,11 @@ const Main = () => {
     <>
       <Dropdown></Dropdown>
       <div className="task-container">
-        <Link to={""} className="home-link">
-          <img src={invx} className="logo-h" />
-        </Link>
+
+        <div className="task-header">
+          <p>Add New Task</p>
+        </div>
         <form className="task-form" onSubmit={saveTaskToBackend}>
-          <div className="task-header">
-            <p>Add New Task</p>
-          </div>
           <input
             name="title"
             id="title"
@@ -93,17 +93,18 @@ const Main = () => {
             value={inputData.title}
             onChange={handleInputChange}
           />
-          <input type="submit" value="submit" id="submit-btn" />
+          
         </form>
+
       </div>
 
       <div className="task-list">
         <div className="task-info">
-          <h2 className="h">TASKS</h2>
+          <h3 className="h">TASKS</h3>
           {task.length === 0 ? (
             <p>No tasks available</p>
           ) : (
-            <ul>
+            <div>
               {task.map((taskItem) => (
                 <div key={taskItem.id}>
                   <div className="task-space">
@@ -112,7 +113,7 @@ const Main = () => {
                   </div>
                 </div>
               ))}
-            </ul>
+              </div>
           )}
         </div>
       </div>

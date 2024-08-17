@@ -1,4 +1,4 @@
-.dropdown-container {
+/* .dropdown-container {
     display: flex;
     height: 100%;
     z-index: 1;
@@ -49,24 +49,25 @@
   }
   
   .dropdown-active {
-    box-shadow: 1px 2px 3px 1px;
     height: 23rem;
-    width: 10vw;
-    background-color: rgba(19, 20, 20, 0.342);
+    width: 10%;
+    background-color: rgba(255, 255, 255, 0.111);
     border-radius: 20px;
-    position: absolute;
-    top: 6rem;
-    margin-left: 3rem;
+    position: fixed;
+    top: 4rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    /* transition: height 200ms linear 0s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
     transition: height 200ms linear 0s;
+    z-index: 3;
+  }
+  .dropdown-active {
+    backdrop-filter: blur(50px);
   }
   .dropdown-not-active {
     height: 17rem;
-    width: 10vw;
+    width: 50%;
     position: absolute;
     left: 3rem;
     top: 6rem;
@@ -88,7 +89,7 @@
   }
   
   .dd-link {
-    color: white;
+    color: rgb(0, 0, 0);
     text-decoration: none;
     font-size: 110%;
   }
@@ -99,5 +100,77 @@
   
   .dd-link:active {
     font-size: 160%;
-  }
-  
+  } */
+  /* Dropdown.css */
+
+.dropdown-container {
+  position: relative;
+  width: 100%;
+}
+
+.navigation {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8); /* Slight transparency */
+}
+
+#toggle-dropdown {
+  display: none; /* Hide the checkbox */
+}
+
+.dropdown {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dropdown .top, .dropdown .middle, .dropdown .bottom {
+  width: 30px;
+  height: 3px;
+  background-color: #333;
+  margin: 5px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Dropdown menu */
+.dropdown-active, .dropdown-not-active {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.7); /* Background with transparency */
+  backdrop-filter: blur(10px); /* Apply the blur effect */
+  transition: max-height 0.3s ease-in-out;
+}
+
+.dropdown-active {
+  max-height: 300px; /* Adjust this value based on the content height */
+}
+
+.dd-link, .dd-misc {
+  display: block;
+  padding: 10px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.dd-link:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Transform the hamburger menu to a cross when active */
+#toggle-dropdown:checked + .dropdown .top {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+#toggle-dropdown:checked + .dropdown .middle {
+  opacity: 0;
+}
+
+#toggle-dropdown:checked + .dropdown .bottom {
+  transform: rotate(-45deg) translate(5px, -5px);
+}

@@ -78,7 +78,7 @@ const LoginBody = () => {
         </a>
 
         <a className="ca" href="/signup">
-          Create new account
+          Create account
         </a>
         
         <button type="submit" className="button">
