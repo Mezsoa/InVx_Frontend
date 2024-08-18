@@ -1,25 +1,84 @@
+
+
+/*BODY*/
 .profile-container {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
-
+/*ON IMG*/
 .profile-profilepicture {
-    /* border: 1px solid white; */
-    height: 10rem;
-    width: 10rem;
-    scale: 0.5;
+    height: 8rem;
+    width: 8rem;
     border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.158);
     text-align: center;
 }
 
-.profile-user-container {
-    /* border: 2px solid white; */
-    height: 30rem;
-    width: 50%;
-    background-color: rgba(75, 75, 75, 0.103);
-    border-radius: 30px;
+.profile-name {
+    color: aliceblue;
+    margin-bottom: 1rem;
+}
+
+.profile-user-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    width: 40%;
+    background-color: rgba(139, 139, 139, 0.479);
+    border-radius: 7px;
+    color: aliceblue;
+    margin-bottom: 3rem;
+}
+/*SCORE BOARD*/
+.profile-gameboard-container{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 0.07rem;
+  width: 15rem;
+  height: 15rem;
+  background-color: rgba(41, 41, 41, 0.479);
+  border-radius: 5px;
+
+}
+    /*EACH SQUARE*/
+.grid-cell {
+    border: 1px solid rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.profile-upgrade-buy-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-upgrade,
+.profile-buy {
+    padding: 1rem;
+}
+
+.upgrade,
+.buy {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 6.45rem;
+    height: 2rem;
+    color: black;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    text-align: center;
+}
+
+.buy {
+    padding-left: 1.5rem;
 }

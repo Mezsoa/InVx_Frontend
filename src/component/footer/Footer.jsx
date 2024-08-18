@@ -18,9 +18,9 @@ const Footer = () => {
     if (localStorage.getItem("loggedInUserId") === null) {
       return (
         <div className="footer-desktop">
-          <Link to="/about">About</Link>
+          <Link to="/consistency">Consistency</Link>
           <Link to="/contact">Contact</Link>
-          <Link to="/">Home</Link>
+          <Link to="/todo">Todo</Link>
           <Link to="/login">Sign In</Link>
           <Link to="/signup">Register</Link>
         </div>
@@ -28,9 +28,9 @@ const Footer = () => {
     } else {
       return (
         <div className="footer-desktop">
-          <Link to="/about">About</Link>
+          <Link to="/consistency">Consistency</Link>
           <Link to="/contact">Contact</Link>
-          <Link to="/">Home</Link>
+          <Link to="/todo">Todo</Link>
           <Link to="/profile">Profile</Link>
           <Link className="logout" to="/login" onClick={handleLogout}>Sign out</Link>
         </div>
@@ -41,8 +41,8 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="under">
-        <Link to="/about">About</Link>
-        <Link to="/">Home</Link>
+        <Link to="/consistency">Consistency</Link>
+        <Link to="/todo">Todo</Link>
         <Link to="/contact">Contact</Link>
       </div>
       <div className="over">

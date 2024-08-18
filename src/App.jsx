@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Startpage from "./pages/startpage/Startpage";
 import LoginPage from "./pages/loginpage/Loginpage";
 import SignupPage from "./pages/signupPage/SignupPage";
-import AboutPage from "./pages/aboutPage/AboutPage";
+import ConsistencyPage from "./pages/consistencyPage/ConsistencyPage";
 import ProfilePage from "./pages/profilePage/ProfilePage";
 
 // Providers
@@ -21,8 +21,8 @@ function App() {
         <SignupProvider>
               <BrowserRouter>
                 <Routes>
-                  <Route path="/about" element={<AboutPage />} />
-                  <Route path="/home" element={<Startpage />} />
+                  <Route path="/consistency" element={<ConsistencyPage />} />
+                  <Route path="/todo" element={<Startpage />} />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/signup" element={<SignupPage />} />

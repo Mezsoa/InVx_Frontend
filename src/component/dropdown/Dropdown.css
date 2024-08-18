@@ -36,6 +36,7 @@
   transition: max-height 0.3s ease-in-out;
   border-radius: 20px;
   margin-left: 1.5%;
+  z-index: 10;
 }
 
 .dropdown-active {

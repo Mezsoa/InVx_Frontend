@@ -47,10 +47,11 @@ const Dropdown = () => {
 
     <div className={isActive ? "dropdown-active" : "dropdown-not-active"}>
           {loggedInUser ? <><p className="dd-misc">{loggedInUser.username}</p><p className="dd-misc"></p></> : null}
-          {authRole ? <Link className="dd-link" to="/admin">Admin</Link> : null}
+          {auth ? <Link className="dd-link" to="/todo">Todos</Link> : null} 
           {auth ? <Link className="dd-link" to="/profile">Profile</Link> : null}
-          <Link className="dd-link" to="/about">About</Link>
+          <Link className="dd-link" to="/consistency">Consistency</Link>
           <Link className="dd-link" to="/contact">Contact</Link>
+          {authRole ? <Link className="dd-link" to="/admin">Admin</Link> : null}
           {auth ? null : <><p className="dd-misc"></p><Link className="dd-link" to="/signup">Register</Link></>}
           {auth ? null : <Link className="dd-link" to="/login">Sign in</Link>}
           {auth ? <><p className="dd-misc"></p><Link className="dd-link" to="/login" onClick={handleLogout}>Sign out</Link></> : null}

@@ -47,7 +47,7 @@ const LoginBody = () => {
 
       // readirect user to home
 
-      await navigate("/home");
+      await navigate("/todo");
       window.location.reload();
     } catch (err) {
       console.log("Error: +" + err);
