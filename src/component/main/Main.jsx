@@ -104,6 +104,7 @@ const Main = () => {
   return (
     <>
       <Dropdown></Dropdown>
+      <div className="main-container">
       <div className="task-container">
         <div className="task-header">
           <p>Add New Task</p>
@@ -137,6 +138,7 @@ const Main = () => {
             ))}
           </div>
         )}
+      </div>
       </div>
     </>
   );

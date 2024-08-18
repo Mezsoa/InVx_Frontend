@@ -19,8 +19,8 @@ const Footer = () => {
       return (
         <div className="footer-desktop">
           <Link to="/consistency">Consistency</Link>
-          <Link to="/contact">Contact</Link>
-          <Link to="/todo">Todo</Link>
+          <Link to="/feedback">Feedback</Link>
+          {/* <Link to="/todo">Todo</Link> */}
           <Link to="/login">Sign In</Link>
           <Link to="/signup">Register</Link>
         </div>
@@ -29,9 +29,9 @@ const Footer = () => {
       return (
         <div className="footer-desktop">
           <Link to="/consistency">Consistency</Link>
-          <Link to="/contact">Contact</Link>
-          <Link to="/todo">Todo</Link>
-          <Link to="/profile">Profile</Link>
+          <Link to="/feedback">Feedback</Link>
+          {/* <Link to="/todo">Todo</Link> */}
+          {/* <Link to="/profile">Profile</Link> */}
           <Link className="logout" to="/login" onClick={handleLogout}>Sign out</Link>
         </div>
       );
@@ -41,9 +41,10 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="under">
-        <Link to="/consistency">Consistency</Link>
         <Link to="/todo">Todo</Link>
-        <Link to="/contact">Contact</Link>
+        <Link to="/profile">Profile</Link>
+        <Link to="/consistency">Consistency</Link>
+        <Link to="/feedback">Feedback</Link>
       </div>
       <div className="over">
         {/*<a href="#">Sign In / Register</a>*/}

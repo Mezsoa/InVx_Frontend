@@ -1,11 +1,11 @@
 import Profile from "../../component/profile/Profile";
+import Footer from "../../component/footer/Footer";
 
 const ProfilePage = () => {
   return (
     <>
-    <div>
     <Profile></Profile>
-    </div>
+    <Footer></Footer>
     </>
   )
 };

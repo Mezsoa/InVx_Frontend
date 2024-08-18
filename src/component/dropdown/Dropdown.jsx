@@ -49,8 +49,9 @@ const Dropdown = () => {
           {loggedInUser ? <><p className="dd-misc">{loggedInUser.username}</p><p className="dd-misc"></p></> : null}
           {auth ? <Link className="dd-link" to="/todo">Todos</Link> : null} 
           {auth ? <Link className="dd-link" to="/profile">Profile</Link> : null}
-          <Link className="dd-link" to="/consistency">Consistency</Link>
-          <Link className="dd-link" to="/contact">Contact</Link>
+          {auth ? <Link className="dd-link" to="/consistency">Consistency</Link> : null}
+          {auth ? <Link className="dd-link" to="/feedback">Feedback</Link> : null}
+          {auth ? <Link className="dd-link" to="/settings">Settings</Link> : null}
           {authRole ? <Link className="dd-link" to="/admin">Admin</Link> : null}
           {auth ? null : <><p className="dd-misc"></p><Link className="dd-link" to="/signup">Register</Link></>}
           {auth ? null : <Link className="dd-link" to="/login">Sign in</Link>}
