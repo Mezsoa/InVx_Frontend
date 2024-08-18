@@ -11,7 +11,7 @@ const Profile = () => {
       <Dropdown></Dropdown>
       <div className="profile-container">
         <div>
-          <Link>
+          <Link to=" ">
             <img
               src={IMG_7585}
               alt="profile picture"
@@ -43,11 +43,11 @@ const Profile = () => {
           </div>
 
           <div className="profile-buy">
-            <label htmlFor="">
+            
             <button className="buy" type="button" value="">
               Buy <BiDollar style={dollarCoinStyle}/>
             </button>
-            </label>
+            
           </div>
 
         </div>
