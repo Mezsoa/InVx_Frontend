@@ -1,0 +1,86 @@
+.settings-settings {
+  width: 80%;
+  height: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: #333; Background color of the bar */
+  background-color: rgba(240, 248, 255, 0.175);
+  backdrop-filter: blur(15px);
+  color: #fff; /* Text color */
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  /* margin-top: 3rem; */
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 3.4rem;
+  height: 1.5rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  /* height: 16px; */
+  height: 1.2rem;
+  /* width: 16px; */
+  width: 1.2rem;
+  left: 2px;
+  bottom: 2.6px;
+  background-color: rgb(255, 255, 255);
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196f3; /* Color when the switch is on */
+}
+
+input:checked + .slider:before {
+  transform: translateX(31px);
+}
+
+/* Dark theme class */
+body.dark-theme {
+  background: linear-gradient(
+    18deg,
+    #555757 0%,
+    #2f3030 34%,
+    #101111 73%,
+    #161616 91%
+  );
+  color: #ffffff; /* Optional: adjust text color */
+}
+
+/* Light theme class */
+body.light-theme {
+  background: linear-gradient(
+    180deg,
+    #0f414d 0%,
+    #1e99b7 38%,
+    #0f414d 68%,
+    #050505 81%
+  );
+  color: #000000; /* Optional: adjust text color */
+}
