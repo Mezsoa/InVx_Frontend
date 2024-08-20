@@ -4,6 +4,7 @@ import Dropdown from "../dropdown/Dropdown.jsx";
 
 const Main = () => {
   const [task, setTask] = useState([]);
+  const [points, setPoints] = useState(0);
   const [inputData, setInputData] = useState({
     title: "",
   });
@@ -12,15 +13,33 @@ const Main = () => {
   console.log("logged in user:", loggedInUserId);
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    if (loggedInUserId) {
+      fetchTasks();
+      fetchUserPoints();
+    }
+  }, [loggedInUserId]);
 
+  // HANDLERS
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+  };
+
+  // FETCHES
+  //fetch a users points
+  const fetchUserPoints = async () => {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/user/points/${loggedInUserId}`
+      );
+      const score = await res.json();
+      setPoints(score.points); // Updates the state with the actual value
+    } catch (err) {
+      console.log("Error trying to fetch the users points");
+    }
   };
 
   // Getting all tasks owned by the loggedInUserId
@@ -78,6 +97,7 @@ const Main = () => {
   // Delete request to backend.
   const deleteTask = async (taskId) => {
     try {
+     // console.log("Deleting task:", taskId); // Logga för att kontrollera körningar
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/task/delete/${taskId}`,
         {
@@ -89,7 +109,10 @@ const Main = () => {
         }
       );
       if (response.ok) {
-        setTask((prevTasks) => prevTasks.filter(task => task.id != taskId));
+        // updateing the task list
+        setTask((prevTasks) => prevTasks.filter((task) => task.id != taskId));
+        // Fetching updated points/score from backend
+        fetchUserPoints();
       } else {
         // alert("Something went wrong and failed to delete the task!");
       }
@@ -99,46 +122,50 @@ const Main = () => {
     }
   };
 
- 
-
   return (
     <>
       <Dropdown></Dropdown>
+      <div>
+        <p>score: {points}</p>
+      </div>
       <div className="main-container">
-      <div className="task-container">
-        <div className="task-header">
-          <p>Add New Task</p>
-        </div>
-        <form className="task-form" onSubmit={saveTaskToBackend}>
-          <input
-            name="title"
-            id="title"
-            placeholder="Title"
-            type="text"
-            value={inputData.title}
-            onChange={handleInputChange}
-          />
-        </form>
-      </div>
-      <div className="task-list-header">
-      <h4 className="h">The plans you have created</h4>
-      </div>
-      <div className="task-list">
-        {task.length === 0 ? (
-          <p>No tasks available</p>
-        ) : (
-          <div>
-            {task.map((taskItem) => (
-              <div key={taskItem.id} className="task-info">
-                <label className="task-label" onClick={() => deleteTask(taskItem.id)}>
-                  <span className="task-title" >{taskItem.title}</span>
-                  <input type="checkbox" />
-                </label>
-              </div>
-            ))}
+        <div className="task-container">
+          <div className="task-header">
+            <p>Add New Task</p>
           </div>
-        )}
-      </div>
+          <form className="task-form" onSubmit={saveTaskToBackend}>
+            <input
+              name="title"
+              id="title"
+              placeholder="Title"
+              type="text"
+              value={inputData.title}
+              onChange={handleInputChange}
+            />
+          </form>
+        </div>
+        <div className="task-list-header">
+          <h4 className="h">The plans you have created</h4>
+        </div>
+        <div className="task-list">
+          {task.length === 0 ? (
+            <p>No tasks available</p>
+          ) : (
+            <div>
+              {task.map((taskItem) => (
+                <div key={taskItem.id} className="task-info">
+                  <label
+                    className="task-label"
+                    onClick={() => deleteTask(taskItem.id)}
+                  >
+                    <span className="task-title">{taskItem.title}</span>
+                    <input type="checkbox" />
+                  </label>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
