@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "../../component/main/main.css";
 import Dropdown from "../dropdown/Dropdown.jsx";
+import { BiDollar } from "react-icons/bi";
+import { dollarCoinStyle } from "../../helper/index.jsx";
 
 const Main = () => {
   const [task, setTask] = useState([]);
@@ -125,8 +127,11 @@ const Main = () => {
   return (
     <>
       <Dropdown></Dropdown>
-      <div>
-        <p>score: {points}</p>
+      <div className="score-container">
+        <div className="score-score">
+        <p className="score-score-points">{points}</p>
+        <p><BiDollar style={dollarCoinStyle} /></p>
+        </div>
       </div>
       <div className="main-container">
         <div className="task-container">

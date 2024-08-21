@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Dropdown from "../dropdown/Dropdown";
 import { dollarCoinStyle } from "../../helper/index.jsx";
 import { useEffect, useRef, useState } from "react";
+import ClickOutside from "../customHooks/ClickOutside.jsx";
 
 // REACT ICON IMPORTS
 import { BiDollar } from "react-icons/bi";
@@ -83,6 +84,10 @@ const Profile = () => {
         } catch (err) {
           console.log("error updating the user points");
         }
+
+        // im closing the icon container after purchase 
+        setShowIconContainer(false);
+
       } else {
         alert(
           "All the cells have already been purchased, try upgrading them instead!"
@@ -101,8 +106,12 @@ const Profile = () => {
     { src: turquoisedragonegg, alt: "Turquoise Dragon Egg"},
   ];
 
+
+  // Here i will use my custom hook to handle the clicks outside the icon container
+  ClickOutside(iconContainerRef, () => setShowIconContainer(false));
+
   useEffect(() => {
-    fetchUserPoints();
+    fetchUserPoints();    
   }, []);
 
   return (
@@ -157,7 +166,7 @@ const Profile = () => {
           </div>
         </div>
         {showIconContainer && (
-          <div className="profile-iconboard-container">
+          <div ref={iconContainerRef} className="profile-iconboard-container">
             {iconImages.map((icon, index) => (
               <div
                 key={index}
