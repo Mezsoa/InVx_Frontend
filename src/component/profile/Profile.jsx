@@ -18,12 +18,17 @@ const Profile = () => {
   const [points, setPoints] = useState(0);
   const [buyOneCell, setBuyOneCell] = useState([]);
   const [showIconContainer, setShowIconContainer] = useState(false);
+  const [chooseIcon, setChooseIcon] = useState(null);
 
   const loggedInUserId = localStorage.getItem("loggedInUserId");
 
   // HANDLER
   const handleClick = () => {
     setShowIconContainer(true);
+  };
+
+  const handleIconClick = (icon) => {
+    setChooseIcon(icon);
   };
 
   const fetchUserPoints = async () => {
@@ -43,14 +48,16 @@ const Profile = () => {
       const availableCells = Array.from({ length: 36 }).map(
         (_, index) => index
       );
+
       const unpurchasedCells = availableCells.filter(
-        (cell) => !buyOneCell.includes(cell)
+        (cell) => !buyOneCell.some((item) => item.index === cell)
       );
+
       if (unpurchasedCells.length > 0) {
         const randomCell =
           unpurchasedCells[Math.floor(Math.random() * unpurchasedCells.length)];
 
-        setBuyOneCell([...buyOneCell, randomCell]);
+        setBuyOneCell([...buyOneCell, { index: randomCell, icon: chooseIcon }]);
 
         // erase 5 points for the bought icon. icon prize = 5 coins or score
         setPoints(points - 5);
@@ -82,6 +89,13 @@ const Profile = () => {
     }
   };
 
+  // ARRAY LIST WITH OBJECTS INSIDE (Represents different icon images for my gameboard field.)
+  const iconImages = [
+    { src: bluedragonegg, alt: "Blue Dragon Egg" },
+    { src: greendragonegg, alt: "Green Dragon Egg" },
+    { src: redorangedragonegg, alt: "Red and Orange Dragon Egg" },
+  ];
+
   useEffect(() => {
     fetchUserPoints();
   }, []);
@@ -110,13 +124,16 @@ const Profile = () => {
         <div className="profile-gameboard-container">
           {Array.from({ length: 36 }).map((_, index) => (
             <div key={index} className="grid-cell">
-              {buyOneCell.includes(index) && (
-                <img
-                  src={bluedragonegg}
-                  alt="Purchased Icon"
-                  className="purchased-icon"
-                />
-              )}
+              {buyOneCell
+                .filter((item) => item.index === index)
+                .map((item) => (
+                  <img
+                    key={item.index}
+                    src={item.icon}
+                    alt="Purchased Icon"
+                    className="purchased-icon"
+                  />
+                ))}
             </div>
           ))}
         </div>
@@ -136,19 +153,17 @@ const Profile = () => {
         </div>
         {showIconContainer && (
           <div className="profile-iconboard-container">
-            <div className="profile-iconboard-icon">
-              <img
-                src={bluedragonegg}
-                alt="Image of a blue dragon egg"
-                className="blue-bronze-dragon-egg"
-              />
-              <img
-                src={redorangedragonegg}
-                alt="Image of a red orange dragon egg"
-                className="red-orange-dragon-egg"
-              />
-              <img src={greendragonegg} alt="Image of a green dragon egg" className="green-dragon-egg" />
-            </div>
+            {iconImages.map((icon, index) => (
+              <div
+                key={index}
+                className={`profile-iconboard-icon ${
+                  chooseIcon === icon.src ? "selected" : ""
+                }`}
+                onClick={() => handleIconClick(icon.src)}
+              >
+                <img src={icon.src} alt={icon.alt} className="dragon-egg" />
+              </div>
+            ))}
             <button className="buy-icon" type="button" onClick={handlePurchase}>
               Buy <BiDollar style={dollarCoinStyle} />
             </button>

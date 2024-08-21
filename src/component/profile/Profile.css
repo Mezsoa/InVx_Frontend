@@ -82,13 +82,12 @@
 
 /* styles and fits the icons to the size of there parent element*/
 .purchased-icon,
-.blue-bronze-dragon-egg,
-.red-orange-dragon-egg,
-.green-dragon-egg {
+.dragon-egg {
     width: 100%;
     height: 100%;
     object-fit: contain;
     border: 1px solid white;
+    cursor: pointer;
 }
 
 /* .grid-cell.purchased {
