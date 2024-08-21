@@ -2,7 +2,7 @@ import "../profile/Profile.css";
 import { Link } from "react-router-dom";
 import Dropdown from "../dropdown/Dropdown";
 import { dollarCoinStyle } from "../../helper/index.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // REACT ICON IMPORTS
 import { BiDollar } from "react-icons/bi";
@@ -13,12 +13,16 @@ import dragonicon from "../../assets/dragonicon.png";
 import bluedragonegg from "../../assets/bluedragonegg.png";
 import redorangedragonegg from "../../assets/redorangedragonegg.png";
 import greendragonegg from "../../assets/greendragonegg.png";
+import turquoisedragonegg from "../../assets/turquoisedragonegg.png";
 
 const Profile = () => {
   const [points, setPoints] = useState(0);
   const [buyOneCell, setBuyOneCell] = useState([]);
   const [showIconContainer, setShowIconContainer] = useState(false);
   const [chooseIcon, setChooseIcon] = useState(null);
+
+  // creating a reference for my icon container
+  const iconContainerRef = useRef(null);
 
   const loggedInUserId = localStorage.getItem("loggedInUserId");
 
@@ -94,6 +98,7 @@ const Profile = () => {
     { src: bluedragonegg, alt: "Blue Dragon Egg" },
     { src: greendragonegg, alt: "Green Dragon Egg" },
     { src: redorangedragonegg, alt: "Red and Orange Dragon Egg" },
+    { src: turquoisedragonegg, alt: "Turquoise Dragon Egg"},
   ];
 
   useEffect(() => {

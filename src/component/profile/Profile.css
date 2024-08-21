@@ -63,7 +63,7 @@
     height: 20rem;
     width: 62%;
     display: flex;
-    flex-direction: column;
+    flex-flow: wrap;
     justify-content: space-between;
     padding: 20px;
     align-items: center;
@@ -71,12 +71,11 @@
     bottom: 12.7rem;
 }
 .profile-iconboard-icon {
-    border: 1px solid yellow;
-    width: 100%;
-    height: 30%;
+    /* border: 1px solid yellow; */
     display: flex;
-    flex-direction: row;
-    padding: 10px;
+    width: 50%;
+    height: 30%;
+    padding: 20px;
 }
 
 
@@ -125,4 +124,9 @@
 .buy,
 .buy-icon {
     padding-left: 1.5rem;
+}
+.buy-icon{
+    width: 100%;
+    height: 15%;
+    padding: 20px;
 }
