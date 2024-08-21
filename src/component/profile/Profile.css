@@ -55,10 +55,46 @@
     justify-content: center;
     border-radius: 5px;
 }
-
-.grid-cell.purchased {
-    background-color: orange; /* When the purchase of an icon has been bade the random square selected will turn orange to indicate  its occupied*/
+    /*ICON BOARD*/
+.profile-iconboard-container {
+    /* border: 1px solid white; */
+    background-color: rgba(14, 14, 14, 0.927);
+    border-radius: 15px;
+    height: 20rem;
+    width: 62%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    position: absolute;
+    bottom: 12.7rem;
 }
+.profile-iconboard-icon {
+    border: 1px solid yellow;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+
+/* styles and fits the icons to the size of there parent element*/
+.purchased-icon,
+.blue-bronze-dragon-egg,
+.red-orange-dragon-egg,
+.green-dragon-egg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: 1px solid white;
+}
+
+/* .grid-cell.purchased {
+    background-color: orange; /* When the purchase of an icon has been bade the random square selected will turn orange to indicate  its occupied
+} */
+
 .profile-upgrade-buy-container {
     display: flex;
     flex-direction: row;
@@ -70,19 +106,24 @@
 }
 
 .upgrade,
-.buy {
+.buy,
+.buy-icon {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 6.45rem;
     height: 2rem;
-    color: black;
+    color: aliceblue;
+    background-color: rgba(139, 139, 139, 0.479);
     border-radius: 5px;
     border: none;
     padding: 10px;
     text-align: center;
+    cursor: pointer;
 }
 
-.buy {
+
+.buy,
+.buy-icon {
     padding-left: 1.5rem;
 }

@@ -1,16 +1,30 @@
 import "../profile/Profile.css";
 import { Link } from "react-router-dom";
-import IMG_7585 from "../../assets/IMG_7585.jpg";
 import Dropdown from "../dropdown/Dropdown";
-import { BiDollar } from "react-icons/bi";
 import { dollarCoinStyle } from "../../helper/index.jsx";
 import { useEffect, useState } from "react";
+
+// REACT ICON IMPORTS
+import { BiDollar } from "react-icons/bi";
+
+// IMAGE IMPORTS
+import IMG_7585 from "../../assets/IMG_7585.jpg";
+import dragonicon from "../../assets/dragonicon.png";
+import bluedragonegg from "../../assets/bluedragonegg.png";
+import redorangedragonegg from "../../assets/redorangedragonegg.png";
+import greendragonegg from "../../assets/greendragonegg.png";
 
 const Profile = () => {
   const [points, setPoints] = useState(0);
   const [buyOneCell, setBuyOneCell] = useState([]);
+  const [showIconContainer, setShowIconContainer] = useState(false);
 
   const loggedInUserId = localStorage.getItem("loggedInUserId");
+
+  // HANDLER
+  const handleClick = () => {
+    setShowIconContainer(true);
+  };
 
   const fetchUserPoints = async () => {
     try {
@@ -38,7 +52,7 @@ const Profile = () => {
 
         setBuyOneCell([...buyOneCell, randomCell]);
 
-        // erase 5 points for the purchase
+        // erase 5 points for the bought icon. icon prize = 5 coins or score
         setPoints(points - 5);
 
         try {
@@ -59,7 +73,9 @@ const Profile = () => {
           console.log("error updating the user points");
         }
       } else {
-        alert("All the cells have already been purchased, try upgrading them instead!");
+        alert(
+          "All the cells have already been purchased, try upgrading them instead!"
+        );
       }
     } else {
       alert("You need to complete more todos to buy this icon");
@@ -93,23 +109,51 @@ const Profile = () => {
 
         <div className="profile-gameboard-container">
           {Array.from({ length: 36 }).map((_, index) => (
-            <div key={index} className={`grid-cell ${buyOneCell.includes(index) ? "purchased" : ""}`}></div>
+            <div key={index} className="grid-cell">
+              {buyOneCell.includes(index) && (
+                <img
+                  src={bluedragonegg}
+                  alt="Purchased Icon"
+                  className="purchased-icon"
+                />
+              )}
+            </div>
           ))}
         </div>
 
         <div className="profile-upgrade-buy-container">
           <div className="profile-upgrade">
-            <button className="upgrade" type="button" value="">
+            <button className="upgrade">
               Upgrade <BiDollar style={dollarCoinStyle} />
             </button>
           </div>
 
           <div className="profile-buy">
-            <button className="buy" type="button" onClick={handlePurchase}>
+            <button className="buy" onClick={handleClick}>
               Buy <BiDollar style={dollarCoinStyle} />
             </button>
           </div>
         </div>
+        {showIconContainer && (
+          <div className="profile-iconboard-container">
+            <div className="profile-iconboard-icon">
+              <img
+                src={bluedragonegg}
+                alt="Image of a blue dragon egg"
+                className="blue-bronze-dragon-egg"
+              />
+              <img
+                src={redorangedragonegg}
+                alt="Image of a red orange dragon egg"
+                className="red-orange-dragon-egg"
+              />
+              <img src={greendragonegg} alt="Image of a green dragon egg" className="green-dragon-egg" />
+            </div>
+            <button className="buy-icon" type="button" onClick={handlePurchase}>
+              Buy <BiDollar style={dollarCoinStyle} />
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
