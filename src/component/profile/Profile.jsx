@@ -34,23 +34,35 @@ const Profile = () => {
       );
       if (unpurchasedCells.length > 0) {
         const randomCell =
-        unpurchasedCells[Math.floor(Math.random() * unpurchasedCells.length)];
+          unpurchasedCells[Math.floor(Math.random() * unpurchasedCells.length)];
 
         setBuyOneCell([...buyOneCell, randomCell]);
 
         // erase 5 points for the purchase
         setPoints(points - 5);
+
         try {
           const res = await fetch(
-            `${import.meta.env.VITE_API_URL}/user/points/${loggedInUserId}`
+            `${import.meta.env.VITE_API_URL}/user/updatePoints`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId: loggedInUserId,
+                points: -5,
+              }),
+            }
           );
-          const score = await res.json();
-          setPoints(score.points); // Updates the state with the actual value
         } catch (err) {
-          console.log("Error trying to fetch the users points");
+          console.log("error updating the user points");
         }
-        
+      } else {
+        alert("All the cells have already been purchased, try upgrading them instead!");
       }
+    } else {
+      alert("You need to complete more todos to buy this icon");
     }
   };
 
@@ -81,7 +93,7 @@ const Profile = () => {
 
         <div className="profile-gameboard-container">
           {Array.from({ length: 36 }).map((_, index) => (
-            <div key={index} className="grid-cell"></div>
+            <div key={index} className={`grid-cell ${buyOneCell.includes(index) ? "purchased" : ""}`}></div>
           ))}
         </div>
 
@@ -93,7 +105,7 @@ const Profile = () => {
           </div>
 
           <div className="profile-buy">
-            <button className="buy" type="button" value="">
+            <button className="buy" type="button" onClick={handlePurchase}>
               Buy <BiDollar style={dollarCoinStyle} />
             </button>
           </div>

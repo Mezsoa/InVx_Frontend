@@ -56,6 +56,9 @@
     border-radius: 5px;
 }
 
+.grid-cell.purchased {
+    background-color: orange; /* When the purchase of an icon has been bade the random square selected will turn orange to indicate  its occupied*/
+}
 .profile-upgrade-buy-container {
     display: flex;
     flex-direction: row;
