@@ -21,5 +21,6 @@ export const authenticateRole = () => {
 // DYNAMIC STYLING FOR THE DOLLAR ICON.
 export const dollarCoinStyle = { color: "gold", fontSize: "1rem", border: "1px solid gold", borderRadius: "50%", boxShadow: "0.5px 1px 2px black", marginLeft: "5px"  };
 
+export const smallDollarCointStyle = {color: "gold", fontSize: "0.8rem", border: "1px solid gold", borderRadius: "50%", boxShadow: "0.5px 1px 2px black", marginLeft: "5px"  }
 
 

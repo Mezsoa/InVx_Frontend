@@ -1,7 +1,7 @@
 import "../profile/Profile.css";
 import { Link } from "react-router-dom";
 import Dropdown from "../dropdown/Dropdown";
-import { dollarCoinStyle } from "../../helper/index.jsx";
+import { dollarCoinStyle, smallDollarCointStyle } from "../../helper/index.jsx";
 import { useEffect, useRef, useState } from "react";
 import ClickOutside from "../customHooks/ClickOutside.jsx";
 
@@ -176,10 +176,11 @@ const Profile = () => {
                 onClick={() => handleIconClick(icon.src)}
               >
                 <img src={icon.src} alt={icon.alt} className="dragon-egg" />
+                <p className="dragon-icon-price">5<BiDollar style={smallDollarCointStyle}/></p>
               </div>
             ))}
             <button className="buy-icon" type="button" onClick={handlePurchase}>
-              Buy <BiDollar style={dollarCoinStyle} />
+              Purchase Dragon <BiDollar style={dollarCoinStyle} />
             </button>
           </div>
         )}
