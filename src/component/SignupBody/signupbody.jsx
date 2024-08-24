@@ -2,7 +2,7 @@ import "../SignupBody/signupbody.css";
 import { useContext, useEffect, useState } from "react";
 import { SignupContext, SignupProvider } from "../context/SignupContext";
 import { Link } from "react-router-dom";
-import invx from "../../assets/invx.png";
+import invx from "/assets/invx.png";
 const signupbody = () => {
   const { fetchSignup } = useContext(SignupContext);
 

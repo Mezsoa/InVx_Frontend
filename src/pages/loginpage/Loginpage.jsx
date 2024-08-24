@@ -1,7 +1,7 @@
 import "./Loginpage.css"
 import LoginBody from "../../component/loginBody/LoginBody";
 import { Link } from "react-router-dom";
-import invx from "../../assets/invx.png";
+import invx from "/assets/invx.png";
 
 const LoginPage = () => {
     return (
