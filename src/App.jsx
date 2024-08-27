@@ -9,35 +9,32 @@ import FeedbackPage from "./pages/feedbackPage/FeedbackPage";
 import ProfilePage from "./pages/profilePage/ProfilePage";
 import SettingsPage from "./pages/settingsPage/SettingsPage";
 
-
 // Providers
 import { AuthProvider } from "./component/context/AuthContext";
 import { LoginProvider } from "./component/context/LoginContext";
 import { SignupProvider } from "./component/context/SignupContext";
 import { ThemeProvider } from "./component/context/ThemeContext";
 
-
-
 function App() {
   return (
     <AuthProvider>
-      <LoginProvider>
-        <SignupProvider>
-          <ThemeProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/settings" element={<SettingsPage />} />
-                  <Route path="/consistency" element={<ConsistencyPage />} />
-                  <Route path="/todo" element={<Startpage />} />
-                  <Route path="/profile" element={<ProfilePage />} />
-                  <Route path="/feedback" element={<FeedbackPage />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/signup" element={<SignupPage />} />
-                </Routes>
-              </BrowserRouter>
-              </ThemeProvider>
-        </SignupProvider>
-      </LoginProvider>
+      <ThemeProvider>
+        <LoginProvider>
+          <SignupProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/consistency" element={<ConsistencyPage />} />
+                <Route path="/todo" element={<Startpage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/feedback" element={<FeedbackPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+              </Routes>
+            </BrowserRouter>
+          </SignupProvider>
+        </LoginProvider>
+      </ThemeProvider>
     </AuthProvider>
   );
 }

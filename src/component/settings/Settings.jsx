@@ -15,11 +15,6 @@ const Settings = () => {
     </div>
     <DarkThemeToggle />
    </div>
-
-
-
-
-
   )
 }
 export default Settings

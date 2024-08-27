@@ -5,7 +5,6 @@ const SignupPage = () => {
     return (
         <div className="signuppage">
             <SignupBody></SignupBody>
-            <Footer></Footer>
         </div>
     );
 }

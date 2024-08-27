@@ -5,11 +5,13 @@ import invx from "/assets/invx.png";
 
 const LoginPage = () => {
     return (
-        <div className="LoginPage">
+        // <body>
+            <div className="LoginPage">
             <Link to={""} className="home-link">
                  <img src={invx} className="logo-l" /></Link>
             <LoginBody></LoginBody>
         </div>
+        // </body>
     );
 };
 

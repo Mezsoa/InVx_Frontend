@@ -21,6 +21,7 @@
 .dropdown {
   display: inline-block;
   cursor: pointer;
+  z-index: 10;
 }
 
 /* Dropdown menu */

@@ -84,3 +84,13 @@ body.light-theme {
   );
   color: #000000; /* Optional: adjust text color */
 }
+
+/* body.light-theme {
+  background: var(--background-light);
+} */
+
+/* body.dark-theme .home-link {
+  background: var(--background-dark);
+} */
+
+

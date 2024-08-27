@@ -20,6 +20,7 @@ export const ThemeProvider = ({ children }) => {
     } else {
       document.body.classList.add("light-theme");
       document.body.classList.remove("dark-theme");
+     
     }
     // Save theme preference to localStorage
     localStorage.setItem("isDarkTheme", JSON.stringify(isDarkTheme));

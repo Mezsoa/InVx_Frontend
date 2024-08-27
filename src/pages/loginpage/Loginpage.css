@@ -3,25 +3,25 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+ 
 }
 .home-link {
   height: auto;
+
 }
+
 .logo-l {
   margin-top: 2rem;
   margin-bottom: 5rem;
   border-radius: 10px;
-  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.705);
-  /* background: linear-gradient(180deg, #0f414d 0%, #1e99b7 38%, #0f414d 68%, #050505 81%); */
-  background-color: #131b28;
+  box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.705);
   height: 10rem;
   width: 10rem;
+ 
 }
 
-@media only screen and (max-width: 1000px) {
-  .logo-l {
-    box-shadow: none;
-  }
+
+@media only screen and (min-width: 1000px) {
   .logo-l:hover {
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.705);
   }
