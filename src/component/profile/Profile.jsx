@@ -86,7 +86,7 @@ const Profile = () => {
       console.log("Raw response:", text);
 
       if (!res.ok) throw new Error("Image upload failed");
-      return text; // Optional: Handle response if needed
+      return text;
     } catch (err) {
       console.log("Error saving purchased icon:", err);
     }
@@ -114,7 +114,6 @@ const Profile = () => {
         // Update state
         setBuyOneCell([...buyOneCell, { index: randomCell, iconTag: chooseIcon }]);
         setPoints(points - 5);
-        // setChooseIcon(null);
         setShowIconContainer(false);
       } else {
         alert("All the cells have already been purchased.");
@@ -142,13 +141,8 @@ const Profile = () => {
 
       const updatedIcons = purchasedIcons.map((icon) => ({
         index: icon.cellIndex,
-        // iconTag: `/assets/${icon.iconTag}`,
         iconTag: icon.iconTag,
       }));
-
-      // const uniqueIcons = Array.from(
-      //   new Map(updatedIcons.map((icon) => [icon.cellIndex, icon])).values()
-      // );
 
       setBuyOneCell(updatedIcons);
     } catch (err) {
