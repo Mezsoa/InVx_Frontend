@@ -41,7 +41,32 @@ const Profile = () => {
     }
   };
 
-  
+    const fetchPurchasedIcon = async () => {
+    try {
+      const res = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/purchaseIcon/load/icon/${loggedInUserId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!res.ok) throw new Error("Failed to fetch purchased icons");
+      const purchasedIcons = await res.json();
+      console.log("Purchased Icons: ", purchasedIcons);
+
+      const updatedIcons = purchasedIcons.map((icon) => ({
+        index: icon.cellIndex,
+        iconTag: icon.iconTag,
+      }));
+
+      setBuyOneCell(updatedIcons);
+    } catch (err) {
+      console.log("Error fetching purchased icons:", err);
+    }
+  };
 
   const savePurchasedIcon = async (cellIndex) => {
     try {
@@ -123,32 +148,7 @@ const Profile = () => {
     }
   };
  
-  const fetchPurchasedIcon = async () => {
-    try {
-      const res = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/purchaseIcon/load/icon/${loggedInUserId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!res.ok) throw new Error("Failed to fetch purchased icons");
-      const purchasedIcons = await res.json();
-      console.log("Purchased Icons: ", purchasedIcons);
 
-      const updatedIcons = purchasedIcons.map((icon) => ({
-        index: icon.cellIndex,
-        iconTag: icon.iconTag,
-      }));
-
-      setBuyOneCell(updatedIcons);
-    } catch (err) {
-      console.log("Error fetching purchased icons:", err);
-    }
-  };
   
   useEffect(() => {
     
