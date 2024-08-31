@@ -1,20 +1,26 @@
 import "../profile/Profile.css";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import ClickOutside from "../customHooks/ClickOutside.jsx";
 import { BiDollar } from "react-icons/bi";
+import { dollarCoinStyle, smallDollarCoinStyle } from "../../helper/index.jsx";
+
+import ClickOutside from "../customHooks/ClickOutside.jsx";
 import IMG_7585 from "/assets/IMG_7585.jpg"; // Example profile picture
 import bluedragonegg from "/assets/bluedragonegg.png";
 import greendragonegg from "/assets/greendragonegg.png";
 import redorangedragonegg from "/assets/redorangedragonegg.png";
 import turquoisedragonegg from "/assets/turquoisedragonegg.png";
-import { dollarCoinStyle, smallDollarCoinStyle } from "../../helper/index.jsx";
+// import dragonicon from "/assets/dragonicon.png";
+// import redorangebabydragon from "/assets/redorangebabydragon.png";
 import Dropdown from "../dropdown/Dropdown.jsx";
 
 const Profile = () => {
   const [points, setPoints] = useState(0);
   const [buyOneCell, setBuyOneCell] = useState([]);
+  const [purchasedIcons, setPurchasedIcons] = useState([]);
   const [showIconContainer, setShowIconContainer] = useState(false);
+  const [showUpgradeIconContainer, setShowUpgradeIconContainer] =
+    useState(false);
   const [chooseIcon, setChooseIcon] = useState(null);
   const iconContainerRef = useRef(null);
   const [iconImages] = useState([
@@ -23,11 +29,17 @@ const Profile = () => {
     redorangedragonegg,
     turquoisedragonegg,
   ]);
-
+  // const [upgradeIconImage] = useState([dragonicon]);
   const loggedInUserId = localStorage.getItem("loggedInUserId");
-  // console.log("VITAL_API_URL: ", import.meta.env.VITE_API_URL);
 
-  ClickOutside(iconContainerRef, () => setShowIconContainer(false));
+  // TEST AREA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  const [testUpgradedIcons, setTestUpgradedIcons] = useState([]);
+
+  const dragonUpgrade = {
+    greendragonegg: "/assets/dragonicon.png",
+    redorangedragonegg: "/assets/redorangebabydragon.png",
+  };
 
   const fetchUserPoints = async () => {
     try {
@@ -41,7 +53,7 @@ const Profile = () => {
     }
   };
 
-    const fetchPurchasedIcon = async () => {
+  const fetchPurchasedIcon = async () => {
     try {
       const res = await fetch(
         `${
@@ -54,15 +66,17 @@ const Profile = () => {
         }
       );
       if (!res.ok) throw new Error("Failed to fetch purchased icons");
-      const purchasedIcons = await res.json();
-      console.log("Purchased Icons: ", purchasedIcons);
+      const purchasedIconsData = await res.json();
+      console.log("Purchased Icons: ", purchasedIconsData);
 
-      const updatedIcons = purchasedIcons.map((icon) => ({
+      const updatedIcons = purchasedIconsData.map((icon) => ({
         index: icon.cellIndex,
         iconTag: icon.iconTag,
       }));
-
+      // updating the gameboard
       setBuyOneCell(updatedIcons);
+      // storing all ppurchased icons
+      setPurchasedIcons(purchasedIconsData);
     } catch (err) {
       console.log("Error fetching purchased icons:", err);
     }
@@ -89,7 +103,7 @@ const Profile = () => {
       // Prepare your data object to send to the backend
       const formData = new FormData();
       formData.append("userId", loggedInUserId);
-      formData.append("iconTag", chooseIcon.split('/').pop());
+      formData.append("iconTag", chooseIcon.split("/").pop());
       formData.append("cellIndex", cellIndexNumber);
       formData.append("file", imgBlob, chooseIcon);
 
@@ -137,7 +151,10 @@ const Profile = () => {
         await savePurchasedIcon(randomCell);
 
         // Update state
-        setBuyOneCell([...buyOneCell, { index: randomCell, iconTag: chooseIcon }]);
+        setBuyOneCell([
+          ...buyOneCell,
+          { index: randomCell, iconTag: chooseIcon },
+        ]);
         setPoints(points - 5);
         setShowIconContainer(false);
       } else {
@@ -147,14 +164,44 @@ const Profile = () => {
       alert("You need more points to buy this icon.");
     }
   };
- 
 
-  
+  const checkAvailableUpgrades = () => {
+    // Använd en Set för att lagra unika iconTags
+    const uniqueIcons = new Set();
+
+    const upgrades = purchasedIcons
+      .filter((icon) => {
+        const iconName = icon.iconTag.split("/").pop().replace(".png", "");
+
+        // Om ikonen redan finns i Set, hoppa över den
+        if (uniqueIcons.has(iconName)) {
+          return false;
+        } else {
+          uniqueIcons.add(iconName); // Lägg till ikonen i Set om den inte redan finns
+          return dragonUpgrade.hasOwnProperty(iconName);
+        }
+      })
+      .map((icon) => {
+        const iconName = icon.iconTag.split("/").pop().replace(".png", "");
+        return {
+          original: icon.iconTag,
+          upgrade: dragonUpgrade[iconName],
+          cellIndex: icon.cellIndex,
+        };
+      });
+
+    console.log("Available icons:", upgrades);
+    return upgrades;
+  };
+
   useEffect(() => {
-    
     fetchUserPoints();
     fetchPurchasedIcon();
   }, [loggedInUserId]);
+  ClickOutside(iconContainerRef, [
+    setShowIconContainer,
+    setShowUpgradeIconContainer,
+  ]);
 
   return (
     <>
@@ -190,7 +237,10 @@ const Profile = () => {
         </div>
         <div className="profile-upgrade-buy-container">
           <div className="profile-upgrade">
-            <button className="upgrade">
+            <button
+              className="upgrade"
+              onClick={() => setShowUpgradeIconContainer(true)}
+            >
               Upgrade <BiDollar style={dollarCoinStyle} />
             </button>
           </div>
@@ -219,6 +269,24 @@ const Profile = () => {
             <button className="buy-icon" type="button" onClick={handlePurchase}>
               Purchase Icon <BiDollar style={smallDollarCoinStyle} />
             </button>
+          </div>
+        )}
+        {showUpgradeIconContainer && (
+          <div ref={iconContainerRef} className="profile-iconboard-container">
+            {checkAvailableUpgrades().map((upgrade, index) => (
+              <div key={index} className="profile-iconboard-icon">
+                <img
+                  src={upgrade.upgrade}
+                  alt={`Upgrade Icon ${index}`}
+                  className="dragon-egg"
+                />
+
+                <p className="dragon-icon-price">
+                  10
+                  <BiDollar style={smallDollarCoinStyle} />
+                </p>
+              </div>
+            ))}
           </div>
         )}
       </div>

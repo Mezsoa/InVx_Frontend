@@ -21,7 +21,7 @@
 .dropdown {
   display: inline-block;
   cursor: pointer;
-  z-index: 10;
+  z-index: 1;
 }
 
 /* Dropdown menu */
@@ -37,7 +37,7 @@
   transition: max-height 0.3s ease-in-out;
   border-radius: 20px;
   margin-left: 1.5%;
-  z-index: 10;
+  z-index: 2;
 }
 
 .dropdown-active {

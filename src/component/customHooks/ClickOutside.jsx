@@ -4,10 +4,9 @@ function ClickOutside(ref, callback) {
   useEffect(() => {
     function handleClickOutside(e) {
       if (ref.current && !ref.current.contains(e.target)) {
-        callback();
+        callback.forEach((callback) => callback(false));
       }
     }
-
     // binding the event listener
     document.addEventListener("mousedown", handleClickOutside);
 
@@ -16,5 +15,5 @@ function ClickOutside(ref, callback) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [ref, callback]);
-}
+};
 export default ClickOutside;

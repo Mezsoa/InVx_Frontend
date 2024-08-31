@@ -28,7 +28,6 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
-  /* margin-top: 2rem; */
 }
 
 .task-form {
@@ -70,7 +69,7 @@
   /* margin-bottom: 3rem; */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-
+  /* border: 1px solid; */
 }
 
 .task-list::-webkit-scrollbar {
@@ -166,3 +165,8 @@
 
 
 
+@media only screen and (min-width: 1000px) {
+  .task-form {
+    width: 50%;
+  }
+}

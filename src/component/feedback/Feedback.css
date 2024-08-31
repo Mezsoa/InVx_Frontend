@@ -65,7 +65,8 @@
 
 @media only screen and (min-width: 1300px) {
   .feedback-input-container {
-    max-width: 40%;
+    max-width: 30%;
+    
   }
   
 }

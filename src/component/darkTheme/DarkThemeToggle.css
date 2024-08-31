@@ -4,14 +4,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* background-color: #333; Background color of the bar */
   background-color: rgba(240, 248, 255, 0.175);
   backdrop-filter: blur(15px);
-  color: #fff; /* Text color */
+  color: #fff;
   padding: 10px 20px;
   border-radius: 10px;
   font-size: 16px;
-  /* margin-top: 3rem; */
 }
 
 .switch {
@@ -42,9 +40,7 @@
 .slider:before {
   position: absolute;
   content: "";
-  /* height: 16px; */
   height: 1.2rem;
-  /* width: 16px; */
   width: 1.2rem;
   left: 2px;
   bottom: 2.6px;
@@ -70,7 +66,7 @@ body.dark-theme {
     #101111 73%,
     #161616 91%
   );
-  color: #ffffff; /* Optional: adjust text color */
+  color: #ffffff; /* Optional: text color */
 }
 
 /* Light theme class */
@@ -82,15 +78,7 @@ body.light-theme {
     #0f414d 68%,
     #050505 81%
   );
-  color: #000000; /* Optional: adjust text color */
+  color: #000000; /* Optional: text color */
 }
-
-/* body.light-theme {
-  background: var(--background-light);
-} */
-
-/* body.dark-theme .home-link {
-  background: var(--background-dark);
-} */
 
 
