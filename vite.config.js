@@ -7,13 +7,17 @@ export default defineConfig({
     open: "/login",
   },
 
-  plugins: [react()],
+  plugins: [
+    react(),
+  ],
 
-  // plugins: [
-  //   //
-  //    new webpack.DefinePlugin({
-  //      'process.env.NODE_ENV': JSON.stringify('development'),
-  //      'process.env.PUBLIC_URL': JSON.stringify('http://localhost:8080/public')
-  //  })
-  //  ]
+  optimizeDeps: {
+    esbuildOptions: {
+      // define global to globalThis for browser compatibility
+      define: {
+        global: "globalThis",
+      },
+    },
+  },
+  
 });
