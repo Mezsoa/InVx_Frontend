@@ -1,7 +1,7 @@
 import "../profile/Profile.css";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { connect, disconnect} from "../../websocketService.js";
+import { connect, disconnect } from "../../websocketService.js";
 import { BiDollar } from "react-icons/bi";
 import { dollarCoinStyle, smallDollarCoinStyle } from "../../helper/index.jsx";
 
@@ -39,7 +39,6 @@ const Profile = () => {
   const loggedInUserId = localStorage.getItem("loggedInUserId");
 
   // TEST AREA ------------------------------------------------------------
-
 
   // ----------------------------------------------------------------------
 
@@ -87,11 +86,15 @@ const Profile = () => {
   const savePurchasedIcon = async (cellIndex, iconUrl = null) => {
     try {
       const chooseIconToSave = iconUrl || chooseIcon; // new
-      if (!chooseIconToSave) { //modified
+      if (!chooseIconToSave) {
+        //modified
         throw new Error("No icon has been selected");
       }
 
-      const iconUrlString = typeof chooseIconToSave === "string" ? chooseIconToSave : chooseIconToSave.original; //new
+      const iconUrlString =
+        typeof chooseIconToSave === "string"
+          ? chooseIconToSave
+          : chooseIconToSave.original; //new
 
       const response = await fetch(iconUrlString); // modified
       if (!response.ok) {
@@ -173,58 +176,71 @@ const Profile = () => {
 
   const handleUpgradedPurchase = async (icon) => {
     if (!icon || !icon.upgrade) {
-      console.error("Ingen giltig ikon vald för uppgradering:", icon);
-      alert("Ingen ikon vald för uppgradering.");
+      console.error("No valid icon selected for upgrade:", icon);
+      alert("No icon selected for upgrade.");
       return;
     }
 
-    // Använd "original" för att hitta vilken ikon som ska uppgraderas
     const iconName = icon.original.split("/").pop().replace(".png", "");
-
-    // Kolla att det finns en tillgänglig uppgradering
     const upgradeIcon = dragonUpgrade[iconName];
+
     if (!upgradeIcon) {
-      alert("Det finns ingen tillgänglig uppgradering för detta ägg.");
+      alert("No available upgrade for this egg.");
       return;
     }
 
-    // hitta den gamla ikonen i köpta ikoner för att ersätta
-    const replaceIcon = purchasedIcons.findIndex(
+    // Find the old icon in purchasedIcons and buyOneCell to replace it
+    const replaceIndex = purchasedIcons.findIndex(
       (purchasedIcon) => purchasedIcon.iconTag === icon.original
     );
 
-    if (replaceIcon !== -1) {
-      // Uppdatera ikonen i köpta ikoner
-      const cellIndex = purchasedIcons[replaceIcon].cellIndex;
+    if (replaceIndex !== -1) {
+      const cellIndex = purchasedIcons[replaceIndex].cellIndex;
+      const userId = purchasedIcons[replaceIndex].userId;
 
-      // skapa en ny lista för purchasedIcons och buyoneCell där den gammla ikonen ersätts
+      // 1. Remove the original icon from the database
+      try {
+        const deleteResponse = await fetch(
+          `${
+            import.meta.env.VITE_API_URL
+          }/purchaseIcon/remove?userId=${userId}&cellIndex=${cellIndex}`,
+          {
+            method: "DELETE",
+            credentials: "include",
+          }
+        );
+        if (!deleteResponse.ok) {
+          const errorText = await deleteResponse.text();
+          console.error("Delete response:", deleteResponse.status, errorText);
+          throw new Error("Failed to delete the original icon");
+        }
+      } catch (error) {
+        console.error("Error deleting original icon:", error);
+        alert("Failed to delete the original icon. Upgrade aborted.");
+        return;
+      }
 
-      const updatedIcons = purchasedIcons.filter(
-        (_, idx) => idx !== replaceIcon
-      );
-      const updatedCells = buyOneCell.filter(
-        (_, idx) => idx !== replaceIcon
-      );
-  
-      updatedIcons.push({
-        index: cellIndex,
-        iconTag: upgradeIcon, // Lägg till den nya uppgraderade ikonen
-      });
-  
-      updatedCells.push({
-        index: cellIndex,
-        iconTag: upgradeIcon, // Lägg till den nya uppgraderade ikonen i spelbrädet
-      });
+      // 2. Create new arrays for purchasedIcons and buyOneCell without the old icon
+      const updatedPurchasedIcons = [
+        ...purchasedIcons.slice(0, replaceIndex),
+        { cellIndex, iconTag: upgradeIcon },
+        ...purchasedIcons.slice(replaceIndex + 1),
+      ];
 
-      // Uppdatera state med min nya uppgraderade ikon
-      setPurchasedIcons(updatedIcons);
-      setBuyOneCell(updatedCells);
+      const updatedBuyOneCell = [
+        ...buyOneCell.filter((cell) => cell.index !== cellIndex), // Remove original icon from buyOneCell
+        { index: cellIndex, iconTag: upgradeIcon },
+      ];
 
-      await savePurchasedIcon(updatedIcons[replaceIcon].cellIndex, upgradeIcon); // Uppdaterad ikon används baserat på chooseIcon
+      // 3. Update the state with the new upgraded icon
+      setPurchasedIcons(updatedPurchasedIcons);
+      setBuyOneCell(updatedBuyOneCell);
 
-      alert("Lyckad uppgradering");
+      // 4. Save the upgraded icon to the backend
+      await savePurchasedIcon(cellIndex, upgradeIcon);
+      alert("Upgrade successful!");
     } else {
-      alert("Hittade inte ägg att uppgradera.");
+      alert("Could not find the egg to upgrade.");
     }
   };
 
@@ -260,38 +276,10 @@ const Profile = () => {
   useEffect(() => {
     fetchUserPoints();
     fetchPurchasedIcon();
-    let isMounted = true;
-    const username = loggedInUserId;
-    // const username = "bidder2";
-    // se till att det matchar backend.. eller det som dynamiskt kommer skapas (se PlaceBid)
 
-    connect(
-      username,
-      (message) => {
-        if (isMounted) {
-          // hanterar bara message om componenten är mountad
-          // en lösning som gör att vi slipper se meddelandet två gånger
-          // vilket är notmalt för useEffect i dev mode men irriterande
-          console.log("WebSocket Message Received: ", message);
-          setNotifications((prev) => [...prev, message]);
-        }
-      },
-      () => {
-        console.log("WebSocket connected for user:", username);
-      },
-      (error) => {
-        console.error("WebSocket connection error:", error);
-      }
-    );
-
-    // cleanup
-    return () => {
-      isMounted = false;
-      disconnect();
-    };
-
-
+    
   }, [loggedInUserId]);
+
   ClickOutside(iconContainerRef, [
     setShowIconContainer,
     setShowUpgradeIconContainer,
@@ -301,13 +289,13 @@ const Profile = () => {
     <>
       <Dropdown />
       <div>
-      <ul>
-        {notifications.length > 0 ? (
-          notifications.map((notif, index) => <li key={index}>{notif}</li>)
-        ) : (
-          <li>No notis yet.</li>
-        )}
-      </ul>
+        <ul>
+          {notifications.length > 0 ? (
+            notifications.map((notif, index) => <li key={index}>{notif}</li>)
+          ) : (
+            <li>No notis yet.</li>
+          )}
+        </ul>
       </div>
       <div className="profile-container">
         <div>
@@ -420,191 +408,4 @@ const Profile = () => {
     </>
   );
 };
-
 export default Profile;
-
-
-
-
-      // const updatedIcons = [...purchasedIcons];
-      // const updatedCells = [...buyOneCell];
-
-      // updatedIcons[replaceIcon] = {
-      //   ...updatedIcons[replaceIcon],
-      //   iconTag: upgradeIcon, // Ersätt med uppgraderingsikonen
-      // };
-  
-      // updatedCells[replaceIcon] = {
-      //   index: cellIndex,
-      //   iconTag: upgradeIcon, // Ersätt med uppgraderingsikonen i spelbrädet
-      // };
-
-
-
-
-
-      // const updatedIcons = [...purchasedIcons];
-      // updatedIcons[replaceIcon] = {
-      //   index: updatedIcons[replaceIcon].cellIndex,
-      //   iconTag: upgradeIcon, // Ersätt med uppgraderingsikonen
-      // };
-
-
-
-
-
-
-
-
-
-
-
-
-// const savePurchasedIcon = async (cellIndex) => {
-//   try {
-//     if (!chooseIcon || !chooseIcon.original) {
-//       throw new Error("No icon has been selected");
-//     }
-
-//     const iconTag = chooseIcon.upgrade || chooseIcon.original; // Använd uppgraderingsikonen om den finns, annars originalet
-
-//     const response = await fetch(iconTag);
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch the image");
-//     }
-
-//     const imgBlob = await response.blob(); // Konvertera svaret till en blob
-
-//     // Kontrollera att cellIndex är ett giltigt nummer
-//     const cellIndexNumber = Number(cellIndex);
-//     if (isNaN(cellIndexNumber)) {
-//       throw new Error("Invalid cellIndex: not a number");
-//     }
-
-//     // Förbered data att skicka till backend
-//     const formData = new FormData();
-//     formData.append("userId", loggedInUserId);
-//     formData.append("iconTag", iconTag.split("/").pop());
-//     formData.append("cellIndex", cellIndexNumber);
-//     formData.append("file", imgBlob, iconTag);
-
-//     const res = await fetch(
-//       `${import.meta.env.VITE_API_URL}/purchaseIcon/add`,
-//       {
-//         method: "POST",
-//         body: formData,
-//         credentials: "include",
-//       }
-//     );
-
-//     if (!res.ok) throw new Error("Image upload failed");
-//     return await res.text();
-//   } catch (err) {
-//     console.log("Error saving purchased icon:", err);
-//   }
-// };
-
-// const handleUpgradedPurchase = async (icon) => {
-//   // Kontrollera om icon är undefined eller saknar original
-//   if (!icon || !icon.original) {
-//     console.error("Ingen giltig ikon vald för uppgradering:", icon);
-//     alert("Ingen ikon vald för uppgradering.");
-//     return;
-//   }
-
-//   console.log("Chosen Icon for upgrade:", icon);
-
-//   //plockar ut filnamnet fför att få nyckeln som matchar i dragonupgrade
-//   const iconName = icon.original.split("/").pop().replace(".png", "");
-
-//   // kollar att det finns en tillgänglig upgradering.
-//   const upgradeIcon = dragonUpgrade[iconName];
-//   if (!upgradeIcon) {
-//     alert("det finns ingen tillgänglig upgradering för detta ägget");
-//     return;
-//   }
-
-//   // hittar första tillgängliga ägget av samma typ att ersätta
-//   const replaceIcon = purchasedIcons.findIndex(
-//     (purchasedIcon) => purchasedIcon.iconTag === icon.original
-//   );
-
-//   if (replaceIcon != -1) {
-//     // updatera ikonen i köpta ikoner
-//     const cellIndex = purchasedIcons[replaceIcon].cellIndex;
-
-//     await savePurchasedIcon(cellIndex);
-
-//     const updatedIcons = [...purchasedIcons];
-//     updatedIcons[replaceIcon] = {
-//       ...updatedIcons[replaceIcon],
-//       iconTag: upgradeIcon, // ersätt med upgraderingsikonen.
-//     };
-
-//     // upddaterar state med min nya upgraderade ikon.
-//     setPurchasedIcons(updatedIcons);
-
-//     alert("lyckad upgradering");
-//   } else {
-//     alert("hittade inte egg att upgradera");
-//   }
-// };
-
-{
-  /* {showIconContainer && (
-          <div ref={iconContainerRef} className="profile-iconboard-container">
-            {iconImages.map((icon, index) => (
-              <div
-                key={index}
-                className={`profile-iconboard-icon ${
-                  chooseIcon === icon ? "selected" : ""
-                }`}
-                onClick={() => setChooseIcon(icon)}
-              >
-                <img src={icon} alt={`Icon ${index}`} className="dragon-egg" />
-                <p className="dragon-icon-price">
-                  5<BiDollar style={smallDollarCoinStyle} />
-                </p>
-              </div>
-            ))}
-            <button className="buy-icon" type="button" onClick={handlePurchase}>
-              Purchase Icon <BiDollar style={smallDollarCoinStyle} />
-            </button>
-          </div>
-        )}
-        {showUpgradeIconContainer && (
-          <div ref={iconContainerRef} className="profile-iconboard-container">
-            {checkAvailableUpgrades().map((upgrade, index, chooseIcon) => (
-              <div
-                key={index}
-                className={`profile-iconboard-icon ${
-                  chooseIcon === upgrade.upgrade
-                    ? "selected"
-                    : ""
-                }`}
-                onClick={() =>
-                  setChooseIcon(upgrade)
-                }
-              >
-                <img
-                  src={upgrade.upgrade}
-                  alt={`Upgrade Icon ${index}`}
-                  className="dragon-egg"
-                />
-
-                <p className="dragon-icon-price">
-                  10
-                  <BiDollar style={smallDollarCoinStyle} />
-                </p>
-              </div>
-            ))}
-            <button
-              className="buy-icon"
-              type="button"
-              onClick={() => handleUpgradedPurchase(chooseIcon)}
-            >
-              Upgrade Icon <BiDollar style={smallDollarCoinStyle} />
-            </button>
-          </div>
-        )} */
-}

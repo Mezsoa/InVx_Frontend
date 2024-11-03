@@ -57,9 +57,6 @@ export const disconnect = () => {
   }
 };
 
-
-
-
 // hjälpfunktion
 const isJsonString = (str) => {
   try {
