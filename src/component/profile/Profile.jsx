@@ -41,7 +41,10 @@ const Profile = () => {
   // TEST AREA ------------------------------------------------------------
 
   // ----------------------------------------------------------------------
-  useEffect(() => {}, [purchasedIcons]);
+  useEffect(() => {
+    checkAvailableUpgrades();// this checks for upgrades whenever purchasedIcons changes
+  }, [purchasedIcons]);
+
   const fetchUserPoints = async () => {
     try {
       const res = await fetch(
@@ -68,7 +71,8 @@ const Profile = () => {
       );
       if (!res.ok) throw new Error("Failed to fetch purchased icons");
       const purchasedIconsData = await res.json();
-      // setPurchasedIcons(purchasedIconsData);
+      // storing all ppurchased icons
+      setPurchasedIcons(purchasedIconsData);
       console.log("Purchased Icons: ", purchasedIconsData);
 
       const updatedIcons = purchasedIconsData.map((icon) => ({
@@ -77,8 +81,6 @@ const Profile = () => {
       }));
       // updating the gameboard
       setBuyOneCell(updatedIcons);
-      // storing all ppurchased icons
-      setPurchasedIcons(purchasedIconsData);
     } catch (err) {
       console.log("Error fetching purchased icons:", err);
     }
@@ -242,27 +244,21 @@ const Profile = () => {
       await savePurchasedIcon(cellIndex, upgradeIcon);
       alert("Upgrade successful!");
 
-      checkAvailableUpgrades(); // ensuring the check is recalculated.
+      checkAvailableUpgrades(); // ensuring the upgrades is recalculated.
     } else {
       alert("Could not find the egg to upgrade.");
     }
   };
 
   const checkAvailableUpgrades = () => {
-    // Använd en Set för att lagra unika iconTags
     const uniqueIcons = new Set();
 
     const upgrades = purchasedIcons
       .filter((icon) => {
         const iconName = icon.iconTag.split("/").pop().replace(".png", "");
-
-        // Om ikonen redan finns i Set, hoppa över den
-        if (uniqueIcons.has(iconName)) {
-          return false;
-        } else {
-          uniqueIcons.add(iconName); // Lägg till ikonen i Set om den inte redan finns
-          return Object.prototype.hasOwnProperty.call(dragonUpgrade, iconName);
-        }
+        if (uniqueIcons.has(iconName)) return false;
+        uniqueIcons.add(iconName);
+        return Object.prototype.hasOwnProperty.call(dragonUpgrade, iconName);
       })
       .map((icon) => {
         const iconName = icon.iconTag.split("/").pop().replace(".png", "");
@@ -273,8 +269,37 @@ const Profile = () => {
         };
       });
 
-    setAvailableUpgrades(upgrades);
+    setAvailableUpgrades(upgrades); // Update state with available upgrades
   };
+
+
+  // const checkAvailableUpgrades = () => {
+
+  //   // Använd en Set för att lagra unika iconTags
+  //   const uniqueIcons = new Set();
+  //   const upgrades = purchasedIcons
+  //     .filter((icon) => {
+  //       const iconName = icon.iconTag.split("/").pop().replace(".png", "");
+
+  //       // Om ikonen redan finns i Set, hoppa över den
+  //       if (uniqueIcons.has(iconName)) {
+  //         return false;
+  //       } else {
+  //         uniqueIcons.add(iconName); // Lägg till ikonen i Set om den inte redan finns
+  //         return Object.prototype.hasOwnProperty.call(dragonUpgrade, iconName);
+  //       }
+  //     })
+  //     .map((icon) => {
+  //       const iconName = icon.iconTag.split("/").pop().replace(".png", "");
+  //       return {
+  //         original: icon.iconTag,
+  //         upgrade: dragonUpgrade[iconName],
+  //         cellIndex: icon.cellIndex,
+  //       };
+  //     });
+
+  //   setAvailableUpgrades(upgrades);
+  // };
 
   // const calculateAvailableUpgrades = () => {
   //   const uniqueIcons = new Set();
