@@ -3,7 +3,8 @@ import Stomp from "stompjs";
 
 let stompClient = null;
 
-export const connect = (username, onMessageReceived, onConnected, onError) => {
+export const connect = (username, onMessage, onConnected, onError) => {
+  console.log('onMessageReceived:', onMessage);
   const socket = new SockJS("http://localhost:8080/ws");
   // this is the backend websocket endpoint
   stompClient = Stomp.over(socket);
@@ -23,7 +24,7 @@ export const connect = (username, onMessageReceived, onConnected, onError) => {
             : message.body;
           // hantera både JSON och plain text
           // vid mottagning av ett meddelande skickas det till callback-funktionen onMessageReceived
-          onMessageReceived(parsedMessage);
+          onMessage(parsedMessage);
         } catch (e) {
           console.error("Error processing WebSocket message", e);
         }

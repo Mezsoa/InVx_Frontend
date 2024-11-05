@@ -6,10 +6,9 @@ const WebsocketContext = createContext();
 const WebsocketProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
   const localStorageUserId = localStorage.getItem("loggedInUserId") || "";
-  const jwtToken = localStorage.getItem("jwtToken") || "";
 
   useEffect(() => {
-    if (!localStorageUserId || !jwtToken) {
+    if (!localStorageUserId) {
       console.error("User ID or JWT Token missing for WebSocket connection.");
       return;
     }
@@ -20,7 +19,6 @@ const WebsocketProvider = ({ children }) => {
 
     connect(
       localStorageUserId,
-      jwtToken,
       onMessage,
       () => { console.log("WebSocket connected for user:", localStorageUserId); },
       (error) => { console.error("WebSocket connection error:", error); }
@@ -29,7 +27,7 @@ const WebsocketProvider = ({ children }) => {
     return () => {
       disconnect();
     };
-  }, [localStorageUserId, jwtToken]);
+  }, [localStorageUserId]);
 
   return (
     <WebsocketContext.Provider value={{ notifications }}>
