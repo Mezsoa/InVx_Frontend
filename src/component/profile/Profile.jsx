@@ -34,16 +34,11 @@ const Profile = () => {
   const dragonUpgrade = {
     greendragonegg: "/assets/dragonicon.png",
     redorangedragonegg: "/assets/redorangebabydragon.png",
+    bluedragonegg: "/assets/bluedragon.png"
   };
   const { notifications } = useContext(WebsocketContext);
   const loggedInUserId = localStorage.getItem("loggedInUserId");
 
-  // TEST AREA ------------------------------------------------------------
-
-  // ----------------------------------------------------------------------
-  useEffect(() => {
-    checkAvailableUpgrades();// this checks for upgrades whenever purchasedIcons changes
-  }, [purchasedIcons]);
 
   const fetchUserPoints = async () => {
     try {
@@ -143,41 +138,6 @@ const Profile = () => {
     }
   };
 
-  const handlePurchase = async () => {
-    if (points >= 5) {
-      // Create an array of 36 elements representing cell indices from 0 to 35
-      const availableCells = Array.from({ length: 36 }, (_, index) => index);
-
-      // Filter out cells that have already been purchased
-      const unpurchasedCells = availableCells.filter(
-        (cell) => !buyOneCell.some((item) => item.index === cell)
-      );
-
-      if (unpurchasedCells.length > 0) {
-        // Select a random unpurchased cell
-        const randomCell =
-          unpurchasedCells[Math.floor(Math.random() * unpurchasedCells.length)];
-        console.log("Random cell selected:", randomCell);
-
-        // Save the icon purchase to the backend
-        await savePurchasedIcon(randomCell);
-
-        // Update state
-        setBuyOneCell([
-          ...buyOneCell,
-          { index: randomCell, iconTag: chooseIcon },
-        ]);
-        setPoints(points - 5);
-        setShowIconContainer(false);
-        checkAvailableUpgrades(); // re-check for possible icon upgrades
-      } else {
-        alert("All the cells have already been purchased.");
-      }
-    } else {
-      alert("You need more points to buy this icon.");
-    }
-  };
-
   const handleUpgradedPurchase = async (icon) => {
     if (!icon || !icon.upgrade) {
       console.error("No valid icon selected for upgrade:", icon);
@@ -200,7 +160,7 @@ const Profile = () => {
 
     if (replaceIndex !== -1) {
       const cellIndex = purchasedIcons[replaceIndex].cellIndex;
-      const userId = purchasedIcons[replaceIndex].userId;
+      const userId = loggedInUserId;
 
       // 1. Remove the original icon from the database
       try {
@@ -223,37 +183,35 @@ const Profile = () => {
         alert("Failed to delete the original icon. Upgrade aborted.");
         return;
       }
+      // 2. Update the state after successful deletion
+      setPurchasedIcons((prev) => {
+        const updatedPurchasedIcons = [
+          ...prev.slice(0, replaceIndex),
+          { cellIndex, iconTag: upgradeIcon },
+          ...prev.slice(replaceIndex + 1),
+        ];
+        checkAvailableUpgrades(updatedPurchasedIcons);
+        return updatedPurchasedIcons;
+      });
 
-      // 2. Create new arrays for purchasedIcons and buyOneCell without the old icon
-      const updatedPurchasedIcons = [
-        ...purchasedIcons.slice(0, replaceIndex),
-        { cellIndex, iconTag: upgradeIcon },
-        ...purchasedIcons.slice(replaceIndex + 1),
-      ];
+      setBuyOneCell((prev) => {
+        const updatedBuyOneCell = [
+          ...prev.filter((cell) => cell.index !== cellIndex),
+          { index: cellIndex, iconTag: upgradeIcon },
+        ];
+        return updatedBuyOneCell;
+      });
 
-      const updatedBuyOneCell = [
-        ...buyOneCell.filter((cell) => cell.index !== cellIndex), // Remove original icon from buyOneCell
-        { index: cellIndex, iconTag: upgradeIcon },
-      ];
-
-      // 3. Update the state with the new upgraded icon
-      setPurchasedIcons(updatedPurchasedIcons);
-      setBuyOneCell(updatedBuyOneCell);
-
-      // 4. Save the upgraded icon to the backend
+      // 3. Save the upgraded icon to the backend
       await savePurchasedIcon(cellIndex, upgradeIcon);
       alert("Upgrade successful!");
-
-      checkAvailableUpgrades(); // ensuring the upgrades is recalculated.
-    } else {
-      alert("Could not find the egg to upgrade.");
     }
   };
-
-  const checkAvailableUpgrades = () => {
+  
+  const checkAvailableUpgrades = (icons = purchasedIcons) => {
     const uniqueIcons = new Set();
 
-    const upgrades = purchasedIcons
+    const upgrades = icons
       .filter((icon) => {
         const iconName = icon.iconTag.split("/").pop().replace(".png", "");
         if (uniqueIcons.has(iconName)) return false;
@@ -271,7 +229,55 @@ const Profile = () => {
 
     setAvailableUpgrades(upgrades); // Update state with available upgrades
   };
+  const handlePurchase = async () => {
+    if (points >= 5) {
+      const availableCells = Array.from({ length: 36 }, (_, index) => index);
+      const unpurchasedCells = availableCells.filter(
+        (cell) => !buyOneCell.some((item) => item.index === cell)
+      );
 
+      if (unpurchasedCells.length > 0) {
+        const randomCell =
+          unpurchasedCells[Math.floor(Math.random() * unpurchasedCells.length)];
+        console.log("Random cell selected:", randomCell);
+
+        // Save the icon purchase to the backend
+        await savePurchasedIcon(randomCell);
+
+        // Update state sequentially
+        const newIcon = { index: randomCell, iconTag: chooseIcon };
+
+        // Update state and then immediately check for upgrades
+        setBuyOneCell((prev) => {
+          const updatedBuyOneCell = [...prev, newIcon];
+          return updatedBuyOneCell;
+        });
+
+        setPurchasedIcons((prev) => {
+          const updatedPurchasedIcons = [
+            ...prev,
+            { cellIndex: randomCell, iconTag: chooseIcon },
+          ];
+          // Immediately check upgrades with the updated list
+          checkAvailableUpgrades(updatedPurchasedIcons);
+          return updatedPurchasedIcons;
+        });
+
+        setPoints(points - 5);
+        setShowIconContainer(false);
+      } else {
+        alert("All the cells have already been purchased.");
+      }
+    } else {
+      alert("You need more points to buy this icon.");
+    }
+  };
+
+
+
+  useEffect(() => {
+    checkAvailableUpgrades(); // this checks for upgrades whenever purchasedIcons changes
+  }, [purchasedIcons]);
 
   // const checkAvailableUpgrades = () => {
 
