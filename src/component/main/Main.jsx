@@ -4,9 +4,11 @@ import Dropdown from "../dropdown/Dropdown.jsx";
 import { BiDollar } from "react-icons/bi";
 import { dollarCoinStyle } from "../../helper/index.jsx";
 
+
 const Main = () => {
   const [task, setTask] = useState([]);
   const [points, setPoints] = useState(0);
+  const [deletedTasks, setDeletedTasks] = useState([]);
   const [inputData, setInputData] = useState({
     title: "",
   });
@@ -19,8 +21,12 @@ const Main = () => {
       fetchTasks();
       fetchUserPoints();
     }
+    //  CONSICTENCY THING
+    const storedDeletedTasks = JSON.parse(localStorage.getItem("deletedTasks"));
+    if (storedDeletedTasks) setDeletedTasks(storedDeletedTasks);
   }, [loggedInUserId]);
 
+  
   // HANDLERS
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +65,6 @@ const Main = () => {
   };
 
   // Save the task to backend database.
-  // POST request to backend.
   const saveTaskToBackend = async (e) => {
     e.preventDefault();
     const loggedInUserId = localStorage.getItem("loggedInUserId");
@@ -96,11 +101,9 @@ const Main = () => {
     }
   };
 
-  // Delete request to backend.
   const deleteTask = async (taskId) => {
     try {
-     // console.log("Deleting task:", taskId); // Logga för att kontrollera körningar
-      const response = await fetch(
+      const res = await fetch(
         `${import.meta.env.VITE_API_URL}/task/delete/${taskId}`,
         {
           method: "DELETE",
@@ -110,16 +113,23 @@ const Main = () => {
           credentials: "include",
         }
       );
-      if (response.ok) {
-        // updateing the task list
-        setTask((prevTasks) => prevTasks.filter((task) => task.id != taskId));
-        // Fetching updated points/score from backend
-        fetchUserPoints();
-      } else {
-        // alert("Something went wrong and failed to delete the task!");
+      if (res.ok) {
+
+         const deletedDate = new Date().toISOString().slice(0, 10); // Current date in YYYY-MM-DD format
+  
+         // Add the deleted date to localStorage
+         const updatedDeletedTasks = [...deletedTasks, deletedDate];
+         localStorage.setItem("deletedTasks", JSON.stringify(updatedDeletedTasks));
+         setDeletedTasks(updatedDeletedTasks);
+  
+         console.log("Deleted tasks updated in localStorage:", updatedDeletedTasks); 
+  
+         // Update the task list to reflect the deletion
+         setTask((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+         fetchUserPoints();
       }
     } catch (err) {
-      console.log("error deleteing the task", err);
+      console.log("Error deleting the task:", err);
       alert("Failed to delete the task.");
     }
   };
@@ -172,6 +182,7 @@ const Main = () => {
           )}
         </div>
       </div>
+
     </>
   );
 };

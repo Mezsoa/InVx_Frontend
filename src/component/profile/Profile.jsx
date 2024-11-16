@@ -1,19 +1,21 @@
 import "../profile/Profile.css";
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiDollar } from "react-icons/bi";
 import { dollarCoinStyle, smallDollarCoinStyle } from "../../helper/index.jsx";
-
+// import { WebsocketContext } from "../context/WebSocketContext.jsx";
+// GENERAL IMPORTS
 import ClickOutside from "../customHooks/ClickOutside.jsx";
-import IMG_7585 from "/assets/IMG_7585.jpg"; // Example profile picture
-import bluedragonegg from "/assets/bluedragonegg.png";
-import greendragonegg from "/assets/greendragonegg.png";
-import redorangedragonegg from "/assets/redorangedragonegg.png";
-import turquoisedragonegg from "/assets/turquoisedragonegg.png";
-// import dragonicon from "/assets/dragonicon.png";
-// import redorangebabydragon from "/assets/redorangebabydragon.png";
 import Dropdown from "../dropdown/Dropdown.jsx";
-import { WebsocketContext } from "../context/WebSocketContext.jsx";
+import profile from "/assets/profile.jpg"; // Example profile picture
+// ICON IMOPRTS
+import bluedragonegg from "/assets/bluedragonegg.png";                        //  Blue:                   
+import greendragonegg from "/assets/greendragonegg.png";                      //  Green:                  
+import redorangedragonegg from "/assets/redorangedragonegg.png";              //  Red/orange:             
+import turquoisedragonegg from "/assets/turquoisedragonegg.png";              //  Turqoise:               
+import reddragonegg from "/assets/reddragonegg.png";                          //  Red:  
+import witheandturqoisedragonegg from "/assets/witheandturqoisedragonegg.png";//  White/turqoise:
+
 
 const Profile = () => {
   const [points, setPoints] = useState(0);
@@ -30,13 +32,18 @@ const Profile = () => {
     greendragonegg,
     redorangedragonegg,
     turquoisedragonegg,
+    reddragonegg,
+    witheandturqoisedragonegg,
   ]);
   const dragonUpgrade = {
-    greendragonegg: "/assets/dragonicon.png",
+    greendragonegg: "/assets/greenbabydragon.png",
     redorangedragonegg: "/assets/redorangebabydragon.png",
-    bluedragonegg: "/assets/bluedragon.png"
+    bluedragonegg: "/assets/bluebabydragon.png",
+    reddragonegg: "/assets/redbabydragon.png",
+    witheandturqoisedragonegg: "/assets/whiteandturqoisebabydragon.png",
+    turquoisedragonegg: "/assets/turqoisebabydragon.png"
   };
-  const { notifications } = useContext(WebsocketContext);
+  // const { notifications } = useContext(WebsocketContext);
   const loggedInUserId = localStorage.getItem("loggedInUserId");
 
 
@@ -273,61 +280,9 @@ const Profile = () => {
     }
   };
 
-
-
   useEffect(() => {
     checkAvailableUpgrades(); // this checks for upgrades whenever purchasedIcons changes
   }, [purchasedIcons]);
-
-  // const checkAvailableUpgrades = () => {
-
-  //   // Använd en Set för att lagra unika iconTags
-  //   const uniqueIcons = new Set();
-  //   const upgrades = purchasedIcons
-  //     .filter((icon) => {
-  //       const iconName = icon.iconTag.split("/").pop().replace(".png", "");
-
-  //       // Om ikonen redan finns i Set, hoppa över den
-  //       if (uniqueIcons.has(iconName)) {
-  //         return false;
-  //       } else {
-  //         uniqueIcons.add(iconName); // Lägg till ikonen i Set om den inte redan finns
-  //         return Object.prototype.hasOwnProperty.call(dragonUpgrade, iconName);
-  //       }
-  //     })
-  //     .map((icon) => {
-  //       const iconName = icon.iconTag.split("/").pop().replace(".png", "");
-  //       return {
-  //         original: icon.iconTag,
-  //         upgrade: dragonUpgrade[iconName],
-  //         cellIndex: icon.cellIndex,
-  //       };
-  //     });
-
-  //   setAvailableUpgrades(upgrades);
-  // };
-
-  // const calculateAvailableUpgrades = () => {
-  //   const uniqueIcons = new Set();
-
-  //   const upgrades = purchasedIcons
-  //     .filter((icon) => {
-  //       const iconName = icon.iconTag.split("/").pop().replace(".png", "");
-  //       if (uniqueIcons.has(iconName)) return false;
-  //       uniqueIcons.add(iconName);
-  //       return Object.prototype.hasOwnProperty.call(dragonUpgrade, iconName);
-  //     })
-  //     .map((icon) => {
-  //       const iconName = icon.iconTag.split("/").pop().replace(".png", "");
-  //       return {
-  //         original: icon.iconTag,
-  //         upgrade: dragonUpgrade[iconName],
-  //         cellIndex: icon.cellIndex,
-  //       };
-  //     });
-
-  //   setAvailableUpgrades(upgrades); // Update available upgrades state
-  // };
 
   useEffect(() => {
     fetchUserPoints();
@@ -342,7 +297,7 @@ const Profile = () => {
   return (
     <>
       <Dropdown />
-      <div>
+      {/* <div className="W-1">
         <ul>
           {notifications.length > 0 ? (
             notifications.map((notifications, index) => (
@@ -352,12 +307,12 @@ const Profile = () => {
             <li>No notis yet.</li>
           )}
         </ul>
-      </div>
+      </div> */}
       <div className="profile-container">
         <div>
           <Link to=" ">
             <img
-              src={IMG_7585}
+              src={profile}
               alt="profile picture"
               className="profile-profilepicture"
             />
