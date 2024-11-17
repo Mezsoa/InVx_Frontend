@@ -1,12 +1,12 @@
 import { useState } from "react";
 import "../categoryDropdown/CategoryDropdown.css";
 
-const CategoryDropdown = () => {
+const CategoryDropdown = ({ onSelect }) => {
   const [selectedOption, setSelectedOption] = useState("Choose Category");
   const [isOpen, setIsOpen] = useState(false);
 
   const options = [
-    "Featuers",
+    "Features",
     "Design",
     "Functionality Bugs",
     "Responsive Design",
@@ -16,6 +16,7 @@ const CategoryDropdown = () => {
   const handleSelectedOption = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
+    onSelect(option); // Pass the selected option up to the Feedback component
   };
 
   return (

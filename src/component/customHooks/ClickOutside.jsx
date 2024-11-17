@@ -15,5 +15,5 @@ function ClickOutside(ref, callback) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [ref, callback]);
-};
+}
 export default ClickOutside;
