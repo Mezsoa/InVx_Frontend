@@ -63,11 +63,11 @@ const Feedback = () => {
       alert("Failed to send feedback.");
     }
   };
-  
+
   return (
     <>
       <div className="feedback-container">
-        <CategoryDropdown onSelect={handleCategoryChange} />
+        <CategoryDropdown categoryOnSelect={handleCategoryChange} />
         <div className="feedback-input-container">
           <TextareaAutosize
             value={value.description}
