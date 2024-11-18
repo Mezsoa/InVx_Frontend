@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "../categoryDropdown/CategoryDropdown.css";
 
-const CategoryDropdown = ({ onSelect }) => {
+const CategoryDropdown = ({ categoryOnSelect }) => { // categoryOnSelect it the middleman between Feedback.jsx and CategoryDropdown.jsx
   const [selectedOption, setSelectedOption] = useState("Choose Category");
   const [isOpen, setIsOpen] = useState(false);
 
-  const options = [
+  const options = [ // Array that contains all categories to chose from
     "Features",
     "Design",
     "Functionality Bugs",
@@ -13,10 +13,10 @@ const CategoryDropdown = ({ onSelect }) => {
     "Other",
   ];
 
-  const handleSelectedOption = (option) => {
-    setSelectedOption(option);
-    setIsOpen(false);
-    onSelect(option); // Pass the selected option up to the Feedback component
+  const handleSelectedOption = (option) => { 
+    setSelectedOption(option); // Updates the state with the selected option.
+    setIsOpen(false); // Closes the dropdown menu.
+    categoryOnSelect(option); // calls a function categoryOnSelect and passes the option as agrument(PARAMETER).
   };
 
   return (

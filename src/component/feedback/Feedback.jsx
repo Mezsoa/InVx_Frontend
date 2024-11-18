@@ -8,51 +8,50 @@ const Feedback = () => {
     category: "",
     description: "",
   });
-
+ 
+    // Defining a Function that take the argument(PARAMETER) event.
   const handleDescriptionChange = (event) => {
+    // accesses the pre-value of setValue state
     setValue((prevValue) => ({
-      ...prevValue,
-      description: event.target.value,
+      ...prevValue, // Copies all other values to a new object as unchanged.
+      // Updates the description attribute with the new value being typed in by the user.
+      // event.target.value gets the new value. 
+      description: event.target.value, 
     }));
     console.log("Description updated: ", event.target.value);
   };
-
   const handleCategoryChange = (selectedCategory) => {
     setValue((prevValue) => ({
       ...prevValue,
-      category: selectedCategory,
+      category: selectedCategory, // Updates Category attribute with the new value typed in by user.
     }));
     console.log("Category selected: ", selectedCategory);
   };
-
+    // This function is declared as an async function wich means it will allways return a promise.
   const createFeedback = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Changes the standard behavior to prevent a page refreash.
     const loggedUserId = localStorage.getItem("loggedInUserId");
-
-    if (!loggedUserId) {
+    if (!loggedUserId) { // if null or undefined it shows alert and ends the function.
       alert("No user is logged in!");
       return;
     }
-
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
+    const options = { // creates an options object with settings in it.
+      method: "POST", // specifies what kind request call it is (POST,DELETE,GET,PUT etc.).
+      headers: {"Content-Type": "application/json",}, // defines that the data is sent as JSON.
+      credentials: "include", // includes that cookie(session data) is being sent with the request.
+      body: JSON.stringify({ // This is the actuall data being sent, now as a JSON string 
         category: value.category,
         message: value.description,
         username: loggedUserId,
       }),
     };
-
     try {
-      const res = await fetch(
+        // await pauses the function until the await have the promise(either resolved or reject).
+      const res = await fetch( // sends the POST-request to the endpoint with the setting from options.
         `${import.meta.env.VITE_API_URL}/userFeedback/create`,
         options
       );
-      if (res.ok) {
+      if (res.ok) { // if res.ok is true it sends confirmation and clears setValue 
         console.log("Feedback sent successfully with data:", value);
         alert("Feedback sent to the Dev Team!");
         setValue({ category: "", description: "" });
@@ -64,7 +63,7 @@ const Feedback = () => {
       alert("Failed to send feedback.");
     }
   };
-
+  
   return (
     <>
       <div className="feedback-container">
