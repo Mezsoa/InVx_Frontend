@@ -5,11 +5,26 @@ const Consistency = () => {
   const [deletedTaskDates, setDeletedTaskDates] = useState([]);
 
   // Load `deletedTaskDates` from `localStorage` when the component mounts
+  // useEffect(() => {
+  //   const storedDeletedTasks = JSON.parse(localStorage.getItem("deletedTasks")) || [];
+  //   setDeletedTaskDates(storedDeletedTasks);
+  //   console.log("Loaded deletedTaskDates:", storedDeletedTasks); // Log to confirm loaded dates
+  // }, []);
+  
+  // Updated version where user updates to the current logged in user 
   useEffect(() => {
-    const storedDeletedTasks = JSON.parse(localStorage.getItem("deletedTasks")) || [];
-    setDeletedTaskDates(storedDeletedTasks);
-    console.log("Loaded deletedTaskDates:", storedDeletedTasks); // Log to confirm loaded dates
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    if (!loggedInUserId) {
+      alert("User is not logged in or user ID is missing");
+      return;
+    }
+  
+    const storedDeletedTasks = JSON.parse(localStorage.getItem("deletedTasks")) || {};
+    const userDeletedTasks = storedDeletedTasks[loggedInUserId] || [];
+    setDeletedTaskDates(userDeletedTasks);
+    console.log("Loaded deletedTaskDates for user:", userDeletedTasks); // Log to confirm loaded dates
   }, []);
+  
 
   // Helper function to check if a date has a deleted task
   const isTaskDeletedOnDate = (date) => deletedTaskDates.includes(date);

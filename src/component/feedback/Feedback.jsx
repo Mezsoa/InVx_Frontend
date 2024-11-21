@@ -4,6 +4,23 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useState } from "react";
 
 const Feedback = () => {
+
+  // const setUser = JSON.parse(localStorage.getItem("user"));
+  
+  // const userRole = setUser && setUser.role && setUser.role.lenght > 0 ? setUser.role[0] : null;
+  // console.log(userRole);
+
+  const getUserRole = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && Array.isArray(user.role) && user.role.length > 0) {
+      return user.role[0];
+    }
+    return null;
+  };
+
+  const userRole = getUserRole();
+  console.log(userRole);
+  
   const [value, setValue] = useState({
     category: "",
     description: "",
@@ -66,6 +83,12 @@ const Feedback = () => {
 
   return (
     <>
+    <div>
+    {userRole === "ROLE_ADMIN" ? (
+      <div>
+        <p>HEJ</p>
+      </div>
+    ) : (
       <div className="feedback-container">
         <CategoryDropdown categoryOnSelect={handleCategoryChange} />
         <div className="feedback-input-container">
@@ -79,6 +102,9 @@ const Feedback = () => {
             Publish
           </button>
         </div>
+
+      </div>
+      )}
       </div>
     </>
   );
