@@ -86,7 +86,7 @@ const Feedback = () => {
     <div>
     {userRole === "ROLE_ADMIN" ? (
       <div>
-        <p>HEJ</p>
+        <p>ADMIN DISPLAY</p>
       </div>
     ) : (
       <div className="feedback-container">

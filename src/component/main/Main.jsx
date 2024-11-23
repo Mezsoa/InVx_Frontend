@@ -119,7 +119,7 @@ const Main = () => {
           alert("User is not logged in or user ID is missing");
           return;
         }
-  
+        
         const deletedDate = new Date().toISOString().slice(0, 10); // Current date in YYYY-MM-DD format
   
         // Load deleted tasks for the user from localStorage
@@ -140,21 +140,6 @@ const Main = () => {
         setTask((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
         fetchUserPoints();
       }
-      // if (res.ok) {
-
-      //    const deletedDate = new Date().toISOString().slice(0, 10); // Current date in YYYY-MM-DD format (includes the( - )aswell)
-  
-      //    // Add the deleted date to localStorage
-      //    const updatedDeletedTasks = [...deletedTasks, deletedDate];
-      //    localStorage.setItem("deletedTasks", JSON.stringify(updatedDeletedTasks));
-      //    setDeletedTasks(updatedDeletedTasks);
-  
-      //    console.log("Deleted tasks updated in localStorage:", updatedDeletedTasks); 
-  
-      //    // Update the task list to reflect the deletion
-      //    setTask((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-      //    fetchUserPoints();
-      // }
     } catch (err) {
       console.log("Error deleting the task:", err);
       alert("Failed to delete the task.");

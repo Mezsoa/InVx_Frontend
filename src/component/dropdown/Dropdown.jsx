@@ -22,15 +22,6 @@ const Dropdown = () => {
         window.location.reload();
     };
 
-
-
-
-
-
-
-
-
-
   return (
     <>
     <div className="dropdown-container">
