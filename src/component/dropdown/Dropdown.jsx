@@ -21,7 +21,7 @@ const Dropdown = () => {
         await logout();
         window.location.reload();
     };
-
+    
   return (
     <>
     <div className="dropdown-container">
@@ -40,7 +40,7 @@ const Dropdown = () => {
           {auth ? <Link className="dd-link" to="/todo">Todos</Link> : null} 
           {auth ? <Link className="dd-link" to="/profile">Profile</Link> : null}
           {auth ? <Link className="dd-link" to="/consistency">Consistency</Link> : null}
-          {auth ? <Link className="dd-link" to="/feedback">Feedback</Link> : null}
+          {auth && !authRole ? <Link className="dd-link" to="/feedback">Feedback</Link> : null}
           {auth ? <Link className="dd-link" to="/settings">Settings</Link> : null}
           {authRole ? <Link className="dd-link" to="/admin">Admin</Link> : null}
           {auth ? null : <><p className="dd-misc"></p><Link className="dd-link" to="/signup">Register</Link></>}
