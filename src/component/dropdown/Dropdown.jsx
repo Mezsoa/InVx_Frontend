@@ -42,7 +42,7 @@ const Dropdown = () => {
           {auth ? <Link className="dd-link" to="/consistency">Consistency</Link> : null}
           {auth && !authRole ? <Link className="dd-link" to="/feedback">Feedback</Link> : null}
           {auth ? <Link className="dd-link" to="/settings">Settings</Link> : null}
-          {authRole ? <Link className="dd-link" to="/admin">Admin</Link> : null}
+          {auth ? <Link className="dd-link" to="/admin">Admin</Link> : null}
           {auth ? null : <><p className="dd-misc"></p><Link className="dd-link" to="/signup">Register</Link></>}
           {auth ? null : <Link className="dd-link" to="/login">Sign in</Link>}
           {auth ? <><p className="dd-misc"></p><Link className="dd-link" to="/login" onClick={handleLogout}>Sign out</Link></> : null}

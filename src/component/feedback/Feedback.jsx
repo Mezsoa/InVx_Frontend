@@ -4,11 +4,12 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useState } from "react";
 
 const Feedback = () => {
+  const [value, setValue] = useState({
+    category: "",
+    description: "",
+  });
 
-  // const setUser = JSON.parse(localStorage.getItem("user"));
   
-  // const userRole = setUser && setUser.role && setUser.role.lenght > 0 ? setUser.role[0] : null;
-  // console.log(userRole);
 
   const getUserRole = () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -17,15 +18,7 @@ const Feedback = () => {
     }
     return null;
   };
-
   const userRole = getUserRole();
-  console.log(userRole);
-  
-  const [value, setValue] = useState({
-    category: "",
-    description: "",
-  });
- 
     // Defining a Function that take the argument(PARAMETER) event.
   const handleDescriptionChange = (event) => {
     // accesses the pre-value of setValue state
@@ -47,8 +40,11 @@ const Feedback = () => {
     // This function is declared as an async function wich means it will allways return a promise.
   const createFeedback = async (e) => {
     e.preventDefault(); // Changes the standard behavior to prevent a page refreash.
-    const loggedUserId = localStorage.getItem("loggedInUserId");
-    if (!loggedUserId) { // if null or undefined it shows alert and ends the function.
+
+    const userId = JSON.parse(localStorage.getItem("user"));
+    
+    console.log(userId);
+    if (!userId) { // if null or undefined it shows alert and ends the function.
       alert("No user is logged in!");
       return;
     }
@@ -59,7 +55,8 @@ const Feedback = () => {
       body: JSON.stringify({ // This is the actuall data being sent, now as a JSON string 
         category: value.category,
         message: value.description,
-        username: loggedUserId,
+        userId: userId.id,
+        username: userId.username,
       }),
     };
     try {

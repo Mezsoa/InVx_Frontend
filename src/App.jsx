@@ -15,6 +15,7 @@ import { LoginProvider } from "./component/context/LoginContext";
 import { SignupProvider } from "./component/context/SignupContext";
 import { ThemeProvider } from "./component/context/ThemeContext";
 import { WebsocketProvider } from "./component/context/WebSocketContext";
+import { AdminPage } from "./pages/adminPage/AdminPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <SignupProvider>
               <BrowserRouter>
                 <Routes>
+                  <Route path="/admin" element={<AdminPage />} />
                   <Route path="/settings" element={<SettingsPage />} />
                   <Route path="/consistency" element={<ConsistencyPage />} />
                   <Route path="/todo" element={<Startpage />} />
