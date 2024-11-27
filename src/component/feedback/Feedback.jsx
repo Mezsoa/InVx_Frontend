@@ -67,7 +67,6 @@ const Feedback = () => {
       );
       if (res.ok) { // if res.ok is true it sends confirmation and clears setValue 
         console.log("Feedback sent successfully with data:", value);
-        alert("Feedback sent to the Dev Team!");
         setValue({ category: "", description: "" });
       } else {
         alert("Failed to send feedback.");

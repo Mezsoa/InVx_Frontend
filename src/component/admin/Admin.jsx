@@ -3,11 +3,10 @@ import "../admin/Admin.css";
 
 export const Admin = () => {
   const [feedback, setFeedback] = useState([]);
-  const [popupContent, setPopupContent] = useState(null);
-  
+  const [selectedFeedback, setSelectedFeedback] = useState(null); // Tracks selected feedback
 
   // FETCHES
-  //fetch a users feedback
+  // Fetch user feedback
   const fetchUserFeedback = async () => {
     try {
       const res = await fetch(
@@ -19,53 +18,48 @@ export const Admin = () => {
     } catch (err) {
       console.log("Error trying to fetch the users points");
     }
-    
   };
 
-  
-  // Fetches feedback data when the component loads
+  // Open popup with selected feedback
+  const openPopup = (feedbackItem) => {
+    setSelectedFeedback(feedbackItem); // Set the clicked feedback as selected
+  };
+
+  // Close popup
+  const closePopup = () => {
+    setSelectedFeedback(null); // Clear the selected feedback
+  };
+
+  // Fetch feedback data when the component loads
   useEffect(() => {
     fetchUserFeedback();
   }, []);
 
-  // Handle popup open
-  const openPopup = (feedbackText) => {
-    setPopupContent(feedbackText);
-  };
-
-  // Handle popup close
-  const closePopup = () => {
-    setPopupContent(null);
-  };
-
-  
   return (
-    <div className="one">
-      <div className="two">
-        {feedback.map((item, index) => (
-          <div key={index} className="feedback-item">
-            <div
-              className="three"
-              onClick={() => openPopup(item.feedbackText)} // Open popup on click
-            >
-              {item.category} {/* Feedback category */}
-            </div>
-            <div
-              className="four"
-              onClick={() => openPopup(item.feedbackText)} // Open popup on click
-            >
-              {item.username} {/* Username */}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Popup */}
-      {popupContent && (
-        <div className="popup">
-          <div className="popup-content">
-            <p>{popupContent}</p>
-            <button onClick={closePopup}>Close</button>
+    <div className="notifications-container">
+      {feedback.map((item, index) => (
+        <div
+          key={index}
+          className="notification-item"
+          onClick={() => openPopup(item)}
+        >
+          <div className="notification-header">{item.category}</div>
+          {/* <div className="notification-body">{item.username}</div> */}
+          <div className="notification-body">{item.description}</div>
+        </div>
+      ))}
+      {/* Expanded Popup */}
+      {selectedFeedback && (
+        <div className="popupAdmin">
+          <div className="popup-contentAdmin">
+            <div className="popup-categoryAdmin">{selectedFeedback.category}</div>
+            <span className="popup-usernameAdmin">
+              {selectedFeedback.username}
+            </span>
+            <div className="popup-messageAdmin">{selectedFeedback.description}</div>
+            <button onClick={closePopup} className="popup-close-buttonAdmin">
+              Close
+            </button>
           </div>
         </div>
       )}
