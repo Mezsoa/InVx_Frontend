@@ -1,119 +1,148 @@
 .notifications-container {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    gap: 1rem;
-    padding: 2rem; 
-    max-height: 76vh;
-    overflow: auto;
-    scroll-behavior: smooth;
-    
-    justify-content: space-between;
-  }
-  
-  .notification-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.9rem;
-    width: 65%;
-    max-width: 400px;
-    background-color: #d4cfcf57; /* Light background for a clean look */
-    border-radius: 13px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .notification-item:hover {
-    background-color: #816060; /* Slightly darker background on hover */
-  }
-  
-  .notification-header {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  
-  .notification-body {
-    font-size: 0.9rem;
-    color: #faf3f3; /* Gray color for the body text */
-    text-overflow: ellipsis; /* Lägg till "..." om texten klipps */
-    overflow: hidden; /* Dölj överflödig text */
-    display: -webkit-box; /* Krävs för att line-clamp ska fungera */
-    -webkit-line-clamp: 2; /* Begränsa texten till 2 rader */
-    -webkit-box-orient: vertical; /* Styr boxorienteringen för clamp */
-    line-height: 1.2em; /* Justera radavstånd */
-    height: 2.4em; /* Begränsa höjden exakt för två rader */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  max-height: 76vh;
+  overflow: auto;
+  scroll-behavior: smooth;
+  justify-content: space-between;
+}
+
+.notification-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.9rem;
+  width: 65%;
+  max-width: 400px;
+  background-color: #d4cfcf57; /* Light background for a clean look */
+  border-radius: 13px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.notification-item:hover {
+  background-color: #816060; /* Slightly darker background on hover */
+}
+
+.notification-header {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.notification-body {
+  font-size: 0.9rem;
+  color: #faf3f3; /* Gray color for the body text */
+  text-overflow: ellipsis; /* Lägg till "..." om texten klipps */
+  overflow: hidden; /* Dölj överflödig text */
+  display: -webkit-box; /* Krävs för att line-clamp ska fungera */
+  -webkit-line-clamp: 2; /* Begränsa texten till 2 rader */
+  -webkit-box-orient: vertical; /* Styr boxorienteringen för clamp */
+  line-height: 1.2em; /* Justera radavstånd */
+  height: 2.4em; /* Begränsa höjden exakt för två rader */
+}
 
 /* Popup styling */
 .popupAdmin {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Dim background */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Dim background */
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.popup-contentAdmin {
+  background: rgba(0, 0, 0, 0.829);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  margin-left: 4rem;
+  width: 90%;
+  max-width: 750px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+  height: 73vh;
+  position: absolute;
+  top: 5.9rem;
+}
+
+.popup-categoryAdmin {
+  font-size: 1rem;
+  font-weight: bolder;
+  color: #85888b; /* iOS-like blue */
+}
+
+.popup-usernameAdmin {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.popup-messageAdmin {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #b1aeae;
+}
+
+.popup-close-buttonAdmin {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(139, 139, 139, 0.479);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.popup-close-buttonAdmin:hover {
+  background: #0056b3;
+}
+
+/* Popup slide-up animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
   }
-  
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .notifications-container {
+    align-items: end;
+  }
+}
+@media only screen and (max-width: 390px) {
+
   .popup-contentAdmin {
     background: rgba(0, 0, 0, 0.829);
     backdrop-filter: blur(10px);
     border-radius: 16px;
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 4rem;
     width: 90%;
-    max-width: 400px;
+    max-width: 260px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     animation: slideUp 0.3s ease-out;
+    height: 73vh;
+    position: absolute;
+    top: 5.9rem;
   }
-  
-  .popup-categoryAdmin {
-    font-size: 1rem;
-    font-weight: bolder;
-    color: #85888b; /* iOS-like blue */
-  }
-  
-  .popup-usernameAdmin {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .popup-messageAdmin {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #b1aeae;
-  }
-  
-  .popup-close-buttonAdmin {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background:  rgba(139, 139, 139, 0.479);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .popup-close-buttonAdmin:hover {
-    background: #0056b3;
-  }
-  
-  /* Popup slide-up animation */
-  @keyframes slideUp {
-    from {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
+}

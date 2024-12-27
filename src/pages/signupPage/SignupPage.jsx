@@ -1,4 +1,4 @@
-import Footer from "../../component/footer/Footer";
+
 import SignupBody from "../../component/SignupBody/signupbody";
 
 const SignupPage = () => {
